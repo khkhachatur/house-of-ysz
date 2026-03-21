@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import LiquidButton from "./LiquidButton";
 
 export default function Hero() {
   const containerVars = {
@@ -43,12 +44,13 @@ export default function Hero() {
           </motion.h1>
 
           <motion.div variants={itemVars} className="flex flex-col gap-3">
-            <button className="bg-white text-black px-8 py-2.5 text-xs font-medium tracking-[0.15em] uppercase hover:bg-gray-200 transition-colors">
+            <LiquidButton variant="white">
               Shop Now
-            </button>
-            <button className="border border-white/60 text-white px-8 py-2.5 text-xs font-light tracking-[0.15em] uppercase hover:bg-white/10 hover:border-white transition-all">
+            </LiquidButton>
+            
+            <LiquidButton variant="transparent">
               Explore More
-            </button>
+            </LiquidButton>
           </motion.div>
         </motion.div>
       </div>
