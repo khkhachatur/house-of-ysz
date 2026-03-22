@@ -29,10 +29,10 @@ export const newArrivalsData: Product[] = [
   {
     id: "3",
     brand: "YSZ",
-    name: "Tactical Vest",
-    price: "330,00 EUR",
-    imageSrc: "/images/products/bag/bag-4.jpg",
-    category: "accessories",
+    name: "SPY",
+    price: "40,00 USD",
+    imageSrc: "/images/products/spy/spy-2.jpg",
+    category: "long-sleeves",
   },
   {
     id: "4",

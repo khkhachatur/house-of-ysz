@@ -9,32 +9,32 @@ export default function CategorySection() {
       id: "t-shirts",
       title: "T-Shirts",
       href: "/t-shirts",
-      imageSrc: "/images/products/bag/bag-1.jpg", 
+      imageSrc: "/images/t-shirts.jpg", 
     },
     {
       id: "hoodies",
       title: "Hoodies",
       href: "/hoodies",
-      imageSrc: "/images/products/bag/bag-2.jpg", 
+      imageSrc: "/images/hoodies.jpg", 
     },
     {
       id: "long-sleeves",
       title: "Long Sleeves",
       href: "/long-sleeves",
-      imageSrc: "/images/products/bag/bag-3.jpg", 
+      imageSrc: "/images/long-sleeves.jpg", 
     },
     {
       id: "accessories",
       title: "Accessories",
       href: "/accessories",
-      imageSrc: "/images/products/bag/bag-5.jpg", 
+      imageSrc: "/images/products/bag/bag-2.jpg", 
     }
   ];
 
   return (
-    <section className="w-full bg-black text-white py-1">
+    <section className="w-full bg-white pb-20">
       <div className="px-6 md:px-10 py-16 flex justify-center text-center">
-        <h2 className="text-[32px] md:text-[50px] font-light tracking-[0.2em] uppercase">
+        <h2 className="text-[32px] text-black md:text-[50px] font-light tracking-[0.2em] uppercase">
           Collections
         </h2>
       </div>

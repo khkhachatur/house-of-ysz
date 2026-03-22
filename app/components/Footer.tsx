@@ -11,7 +11,7 @@ export default function Footer() {
     <footer className="relative w-full bg-black text-white mt-auto flex flex-col overflow-hidden">
 
       <Image 
-        src="/images/products/bag/bag-4.jpg" 
+        src="/images/footer.jpg" 
         alt="YSZ Footer Background" 
         fill 
         className="object-cover opacity-20 grayscale pointer-events-none" 
