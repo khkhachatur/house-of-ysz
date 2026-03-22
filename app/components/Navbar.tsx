@@ -1,12 +1,20 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [lang, setLang] = useState<"EN" | "RU">("EN");
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const isProductPage = pathname?.startsWith("/products/");
+  const isCartPage = pathname === "/cart";
+  const isSavedPage = pathname === "/saved";
+
+  const forceBackground = isProductPage || isCartPage || isSavedPage;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,10 +33,14 @@ export default function Navbar() {
     setLang((prev) => (prev === "EN" ? "RU" : "EN"));
   };
 
+  const showBackground = isScrolled || forceBackground;
+
   return (
     <nav 
-      className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-10 transition-all duration-500 ${
-        isScrolled ? "bg-black/95 backdrop-blur-md py-4 shadow-lg text-white" : "bg-transparent py-8 text-white"
+      className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-10 transition-all duration-500 text-white ${
+        showBackground 
+          ? "bg-black/95 backdrop-blur-md py-4 shadow-lg" 
+          : "bg-transparent py-8"
       }`}
     >
       <div className="flex items-center gap-8 text-[11px] tracking-widest uppercase">
@@ -55,15 +67,18 @@ export default function Navbar() {
           <button className="hover:opacity-70 transition-opacity">
             <Image src="/icons/search.svg" alt="Search" width={18} height={18} />
           </button>
-          <button className="hover:opacity-70 transition-opacity">
+          
+          <Link href="/saved" className="hover:opacity-70 transition-opacity">
             <Image src="/icons/bookmark.svg" alt="Bookmark" width={18} height={18} />
-          </button>
+          </Link>
+          
           <button className="hover:opacity-70 transition-opacity">
             <Image src="/icons/user.svg" alt="Account" width={18} height={18} />
           </button>
-          <button className="hover:opacity-70 transition-opacity">
+          
+          <Link href="/cart" className="hover:opacity-70 transition-opacity">
             <Image src="/icons/bag.svg" alt="Cart" width={18} height={18} />
-          </button>
+          </Link>
         </div>
       </div>
     </nav>

@@ -6,36 +6,41 @@ export interface Product {
   price: string;
   imageSrc: string;
   sizes?: string[];
+  category: string;
 }
 
 export const newArrivalsData: Product[] = [
   {
     id: "1",
     brand: "YSZ",
-    name: "Spy Hoodie Black",
-    price: "249,00 EUR",
-    imageSrc: "/images/products/bag/bag-1.jpg", 
+    name: "PF T-Shirt Coffee",
+    price: "25,00 USD",
+    imageSrc: "/images/products/pf-t-shirt/pf-1.jpg", 
+    category: "t-shirts",
   },
   {
     id: "2",
     brand: "YSZ",
-    name: "Travel Cargo Pants",
-    price: "189,00 EUR",
-    imageSrc: "/images/products/bag/bag-2.jpg",
+    name: "WNTT T-Shirt",
+    price: "25,00 USD",
+    imageSrc: "/images/products/wntt/wntt-1.jpg",
+    category: "t-shirts",
   },
   {
     id: "3",
     brand: "YSZ",
-    name: "Heavyweight Boxy Tee",
-    price: "120,00 EUR",
-    imageSrc: "/images/products/bag/bag-3.jpg",
+    name: "Tactical Vest",
+    price: "330,00 EUR",
+    imageSrc: "/images/products/bag/bag-4.jpg",
+    category: "accessories",
   },
   {
     id: "4",
     brand: "YSZ",
-    name: "Tactical Vest",
-    price: "330,00 EUR",
-    imageSrc: "/images/products/bag/bag-4.jpg",
+    name: "WNTT Hoodie",
+    price: "30,00 USD",
+    imageSrc: "/images/products/wntt/wntt-2.jpg",
+    category: "hoodies",
   },
   {
     id: "5",
@@ -43,6 +48,7 @@ export const newArrivalsData: Product[] = [
     name: "Spy Collection Trench",
     price: "450,00 EUR",
     imageSrc: "/images/products/bag/bag-5.jpg",
+    category: "long-sleeves",
   },
   {
     id: "6",
@@ -50,6 +56,7 @@ export const newArrivalsData: Product[] = [
     name: "Knit Balaclava",
     price: "85,00 EUR",
     imageSrc: "/images/products/bag/bag-1.jpg",
+    category: "bag",
   },
   {
     id: "7",
@@ -57,6 +64,7 @@ export const newArrivalsData: Product[] = [
     name: "Utility Belt",
     price: "95,00 EUR",
     imageSrc: "/images/products/bag/bag-2.jpg",
+    category: "bag",
   },
   {
     id: "8",
@@ -64,5 +72,6 @@ export const newArrivalsData: Product[] = [
     name: "Oversized Long Sleeve",
     price: "140,00 EUR",
     imageSrc: "/images/products/bag/bag-3.jpg",
+    category: "bag",
   },
 ];

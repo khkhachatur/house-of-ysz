@@ -9,7 +9,7 @@ interface LiquidButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
 
 export default function LiquidButton({ 
   variant = "black", 
-  withWave = true, 
+  withWave, 
   children, 
   className = "", 
   ...props 
@@ -17,29 +17,29 @@ export default function LiquidButton({
   
   const styles = {
     "hero-solid": {
-      container: "bg-black text-white border border-white hover:bg-white hover:text-black hover:border-black transition-all duration-300",
-      textHover: "", 
-      wave: "",
+      container: "bg-black text-white border border-white hover:border-white",
+      textHover: "group-hover:text-black", 
+      fill: "bg-white",
     },
     "hero-outline": {
-      container: "bg-transparent text-white border border-white hover:bg-white hover:text-black hover:border-black transition-all duration-300",
-      textHover: "", 
-      wave: "",
+      container: "bg-transparent text-white border border-white hover:border-white",
+      textHover: "group-hover:text-black", 
+      fill: "bg-white",
     },
     white: {
-      container: "bg-white text-black border border-white hover:border-black hover:bg-black hover:[transition:background-color_500ms_ease_300ms,border-color_500ms_ease_0ms]",
+      container: "bg-white text-black border border-white hover:border-black",
       textHover: "group-hover:text-white", 
-      wave: "bg-black",
+      fill: "bg-black",
     },
     transparent: {
-      container: "bg-transparent text-white border border-white/60 hover:border-white hover:bg-white hover:[transition:background-color_500ms_ease_300ms,border-color_500ms_ease_0ms]",
+      container: "bg-transparent text-white border border-white/60 hover:border-white",
       textHover: "group-hover:text-black",
-      wave: "bg-white",
+      fill: "bg-white",
     },
     black: {
-      container: "bg-transparent text-black border border-black hover:border-black transition-colors duration-500",
+      container: "bg-transparent text-black border border-black hover:border-black",
       textHover: "group-hover:text-white",
-      wave: "bg-black",
+      fill: "bg-black",
     }
   };
 
@@ -47,18 +47,16 @@ export default function LiquidButton({
 
   return (
     <button 
-      className={`relative overflow-hidden px-8 py-2.5 text-[10px] md:text-xs font-medium tracking-[0.15em] uppercase group pointer-events-auto ${selected.container} ${className}`}
+      className={`relative overflow-hidden px-8 py-2.5 text-[10px] md:text-xs font-medium tracking-[0.15em] uppercase group pointer-events-auto transition-colors duration-500 ${selected.container} ${className}`}
       {...props}
     >
       <span className={`relative z-10 transition-colors duration-500 ease-in-out ${selected.textHover}`}>
         {children}
       </span>
       
-      {withWave && (
-        <div 
-          className={`absolute left-1/2 top-[120%] h-[200px] w-[200px] -translate-x-1/2 rounded-[40%] transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:top-[-50px] animate-[spin_4s_linear_infinite] ${selected.wave}`} 
-        />
-      )}
+      <div 
+        className={`absolute bottom-0 left-0 w-full h-full origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] z-0 ${selected.fill}`} 
+      />
     </button>
   );
 }
