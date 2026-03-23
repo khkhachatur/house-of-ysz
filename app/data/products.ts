@@ -12,7 +12,7 @@ export interface Product {
 export const newArrivalsData: Product[] = [
   {
     id: "1",
-    brand: "YSZ",
+    brand: "yzs",
     name: "PF T-Shirt Coffee",
     price: "25,00 USD",
     imageSrc: "/images/products/pf-t-shirt/pf-1.jpg", 
@@ -20,7 +20,7 @@ export const newArrivalsData: Product[] = [
   },
   {
     id: "2",
-    brand: "YSZ",
+    brand: "yzs",
     name: "WNTT T-Shirt",
     price: "25,00 USD",
     imageSrc: "/images/products/wntt/wntt-1.jpg",
@@ -28,7 +28,7 @@ export const newArrivalsData: Product[] = [
   },
   {
     id: "3",
-    brand: "YSZ",
+    brand: "yzs",
     name: "SPY",
     price: "40,00 USD",
     imageSrc: "/images/products/spy/spy-2.jpg",
@@ -36,7 +36,7 @@ export const newArrivalsData: Product[] = [
   },
   {
     id: "4",
-    brand: "YSZ",
+    brand: "yzs",
     name: "WNTT Hoodie",
     price: "30,00 USD",
     imageSrc: "/images/products/wntt/wntt-2.jpg",
@@ -44,7 +44,7 @@ export const newArrivalsData: Product[] = [
   },
   {
     id: "5",
-    brand: "YSZ",
+    brand: "yzs",
     name: "Spy Collection Trench",
     price: "450,00 EUR",
     imageSrc: "/images/products/bag/bag-5.jpg",
@@ -52,7 +52,7 @@ export const newArrivalsData: Product[] = [
   },
   {
     id: "6",
-    brand: "YSZ",
+    brand: "yzs",
     name: "Knit Balaclava",
     price: "85,00 EUR",
     imageSrc: "/images/products/bag/bag-1.jpg",
@@ -60,7 +60,7 @@ export const newArrivalsData: Product[] = [
   },
   {
     id: "7",
-    brand: "YSZ",
+    brand: "yzs",
     name: "Utility Belt",
     price: "95,00 EUR",
     imageSrc: "/images/products/bag/bag-2.jpg",
@@ -68,7 +68,7 @@ export const newArrivalsData: Product[] = [
   },
   {
     id: "8",
-    brand: "YSZ",
+    brand: "yzs",
     name: "Oversized Long Sleeve",
     price: "140,00 EUR",
     imageSrc: "/images/products/bag/bag-3.jpg",

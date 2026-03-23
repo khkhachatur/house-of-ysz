@@ -40,7 +40,7 @@ export default function AccessoriesSection() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="absolute top-[8%] left-[20%] w-[24%] md:w-[20%] aspect-[4/5] pointer-events-auto cursor-pointer z-10"
         >
-          <Image src="/images/products/bag/bag-1.jpg" alt="YSZ Bag" fill className="object-cover shadow-xl" />
+          <Image src="/images/products/bag/bag-1.jpg" alt="yzs Bag" fill className="object-cover shadow-xl" />
         </motion.div>
 
         <motion.div 
@@ -51,7 +51,7 @@ export default function AccessoriesSection() {
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="absolute top-[5%] right-[28%] w-[22%] md:w-[18%] aspect-[4/5] pointer-events-auto cursor-pointer z-10"
         >
-          <Image src="/images/products/bag/bag-2.jpg" alt="YSZ Bag" fill className="object-cover shadow-xl" />
+          <Image src="/images/products/bag/bag-2.jpg" alt="yzs Bag" fill className="object-cover shadow-xl" />
         </motion.div>
 
         <motion.div 
@@ -62,7 +62,7 @@ export default function AccessoriesSection() {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="absolute top-[45%] left-[8%] w-[26%] md:w-[22%] aspect-[4/5] pointer-events-auto cursor-pointer z-10"
         >
-          <Image src="/images/products/bag/bag-3.jpg" alt="YSZ Bag" fill className="object-cover shadow-xl" />
+          <Image src="/images/products/bag/bag-3.jpg" alt="yzs Bag" fill className="object-cover shadow-xl" />
         </motion.div>
 
         <motion.div 
@@ -73,7 +73,7 @@ export default function AccessoriesSection() {
           transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="absolute bottom-[5%] left-[36%] w-[28%] md:w-[24%] aspect-[4/5] pointer-events-auto cursor-pointer z-10"
         >
-          <Image src="/images/products/bag/bag-4.jpg" alt="YSZ Bag Texture" fill className="object-cover shadow-xl" />
+          <Image src="/images/products/bag/bag-4.jpg" alt="yzs Bag Texture" fill className="object-cover shadow-xl" />
         </motion.div>
 
         <motion.div 
@@ -84,7 +84,7 @@ export default function AccessoriesSection() {
           transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="absolute top-[42%] right-[10%] w-[25%] md:w-[21%] aspect-[3/4] pointer-events-auto cursor-pointer z-10"
         >
-          <Image src="/images/products/bag/bag-5.jpg" alt="YSZ Bag" fill className="object-cover shadow-xl" />
+          <Image src="/images/products/bag/bag-5.jpg" alt="yzs Bag" fill className="object-cover shadow-xl" />
         </motion.div>
 
       </div>

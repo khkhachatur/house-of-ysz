@@ -52,7 +52,7 @@ export default function Navbar() {
 
       <div className="absolute left-1/2 -translate-x-1/2">
         <Link href="/">
-          <span className="text-3xl font-black italic tracking-wider">YSZ</span>
+          <span className="text-3xl font-black italic tracking-wider">yzs</span>
         </Link>
       </div>
 

@@ -5,14 +5,14 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function Footer() {
-  const tickerText = Array(12).fill("YSZ ");
+  const tickerText = Array(12).fill("yzs ");
 
   return (
     <footer className="relative w-full bg-black text-white mt-auto flex flex-col overflow-hidden">
 
       <Image 
         src="/images/footer.jpg" 
-        alt="YSZ Footer Background" 
+        alt="yzs Footer Background" 
         fill 
         className="object-cover opacity-20 grayscale pointer-events-none" 
       />
@@ -44,7 +44,7 @@ export default function Footer() {
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between gap-16 md:gap-8 mb-20">
           
           <div className="w-full md:w-1/3 flex flex-col">
-            <h3 className="text-3xl font-black italic tracking-wider mb-6">YSZ</h3>
+            <h3 className="text-3xl font-black italic tracking-wider mb-6">yzs</h3>
             <p className="text-xs font-medium tracking-wide text-gray-400 leading-relaxed mb-8 max-w-xs">
               Join the collective. Subscribe for exclusive releases, early access, and inside stories.
             </p>
@@ -106,7 +106,7 @@ export default function Footer() {
         </div>
 
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 text-[9px] font-bold tracking-[0.2em] uppercase text-gray-500 gap-6">
-          <div>© {new Date().getFullYear()} YSZ. All Rights Reserved.</div>
+          <div>© {new Date().getFullYear()} yzs. All Rights Reserved.</div>
           <div className="flex gap-8">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>

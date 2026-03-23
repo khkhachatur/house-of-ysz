@@ -22,8 +22,8 @@ export default function Hero() {
     <section className="relative w-full h-screen overflow-hidden bg-black">
       <div className="absolute inset-0 w-full h-full z-0">
         <Image
-          src="/ysz-hero.jpg"
-          alt="YSZ Spy Collection"
+          src="/yzs-hero.jpg"
+          alt="yzs Spy Collection"
           fill
           priority
           className="object-cover object-center opacity-80"
