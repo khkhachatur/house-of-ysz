@@ -85,8 +85,40 @@ export default function StockTable() {
 
   if (loading) return <p className="text-xs tracking-widest uppercase text-gray-400">Loading…</p>;
 
+  const valueByCurrency: Record<string, number> = {};
+  let totalUnits = 0;
+  let soldOutSizes = 0;
+  for (const prod of products) {
+    for (const v of prod.product_variants) {
+      for (const s of v.variant_sizes) {
+        totalUnits += s.stock_quantity;
+        if (s.stock_quantity === 0) soldOutSizes++;
+        valueByCurrency[prod.currency] = (valueByCurrency[prod.currency] ?? 0) + s.stock_quantity * Number(prod.price);
+      }
+    }
+  }
+  const stats = [
+    {
+      label: "Stock value",
+      value: Object.entries(valueByCurrency)
+        .map(([cur, sum]) => `${sum.toLocaleString("en-US")} ${cur}`)
+        .join(" + ") || "0",
+    },
+    { label: "Total units", value: totalUnits.toLocaleString("en-US") },
+    { label: "Products", value: String(products.length) },
+    { label: "Sold-out sizes", value: String(soldOutSizes) },
+  ];
+
   return (
     <div className="flex flex-col gap-10">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-200 border border-gray-200">
+        {stats.map((st) => (
+          <div key={st.label} className="bg-white p-5">
+            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-2">{st.label}</p>
+            <p className="text-2xl font-black italic tracking-wider">{st.value}</p>
+          </div>
+        ))}
+      </div>
       {products.map((prod) => (
         <div key={prod.id} className="border border-gray-200 p-6">
           <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
