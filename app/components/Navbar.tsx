@@ -54,7 +54,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
 
       <div className="absolute left-1/2 -translate-x-1/2">
         <Link href="/">
-          <span className="text-3xl font-black italic tracking-wider">yzs</span>
+          <Image src="/yzs-logo.svg" alt="YZS" width={74} height={30} priority />
         </Link>
       </div>
 
