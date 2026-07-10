@@ -3,6 +3,10 @@ import Navbar from "./components/Navbar";
 import { StoreProvider } from "../context/StoreContext";
 import "./globals.css";
 import Footer from './components/Footer';
+import { supabase } from "./utils/supabase";
+import type { Category } from "./types";
+
+export const dynamic = "force-dynamic";
 
 const rebelton = localFont({
   src: [
@@ -29,19 +33,24 @@ const rebeltonExtended = localFont({
   display: 'swap',
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { data } = await supabase
+    .from("categories")
+    .select("*")
+    .order("display_order");
+  const categories: Category[] = data ?? [];
+
   return (
     <html lang="en" className={`${rebelton.variable} ${rebeltonExtended.variable}`}>
       <body className="antialiased bg-black min-h-screen font-sans text-white">
-        <Navbar />
-        <StoreProvider> 
-          <Navbar />
+        <StoreProvider>
+          <Navbar categories={categories} />
           <main>{children}</main>
-          <Footer />
+          <Footer categories={categories} />
         </StoreProvider>
       </body>
     </html>

@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import type { Category } from "../types";
 
-export default function Navbar() {
+export default function Navbar({ categories }: { categories: Category[] }) {
   const pathname = usePathname();
   const [lang, setLang] = useState<"EN" | "RU">("EN");
   const [isScrolled, setIsScrolled] = useState(false);
@@ -44,10 +45,11 @@ export default function Navbar() {
       }`}
     >
       <div className="flex items-center gap-8 text-[11px] tracking-widest uppercase">
-        <Link href="/t-shirts" className="hover:opacity-70 transition-opacity">T-Shirts</Link>
-        <Link href="/hoodies" className="hover:opacity-70 transition-opacity">Hoodies</Link>
-        <Link href="/long-sleeves" className="hover:opacity-70 transition-opacity">Long Sleeves</Link>
-        <Link href="/accessories" className="hover:opacity-70 transition-opacity">Accessories</Link>
+        {categories.map((c) => (
+          <Link key={c.id} href={`/${c.slug}`} className="hover:opacity-70 transition-opacity">
+            {c.title_en}
+          </Link>
+        ))}
       </div>
 
       <div className="absolute left-1/2 -translate-x-1/2">
