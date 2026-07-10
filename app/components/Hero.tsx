@@ -40,7 +40,7 @@ export default function Hero() {
         >
           <motion.h1 variants={itemVars} className="flex flex-col leading-none mb-8">
             <span className="text-[160px] font-black italic tracking-tighter text-gray-200 drop-shadow-md">SPY</span>
-            <span className="text-[40px] font-light tracking-[0.2em] -mt-4 text-white">COLLECTION</span>
+            <span className="text-[40px] font-light tracking-[0.2em] mt-4 text-white">COLLECTION</span>
           </motion.h1>
 
           <motion.div variants={itemVars} className="flex flex-col gap-3">
