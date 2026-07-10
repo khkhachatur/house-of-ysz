@@ -11,11 +11,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
   const [lang, setLang] = useState<"EN" | "RU">("EN");
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const isProductPage = pathname?.startsWith("/products/");
-  const isCartPage = pathname === "/cart";
-  const isSavedPage = pathname === "/saved";
-
-  const forceBackground = isProductPage || isCartPage || isSavedPage;
+  const forceBackground = pathname !== "/";
 
   useEffect(() => {
     const handleScroll = () => {
