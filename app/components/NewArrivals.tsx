@@ -25,12 +25,12 @@ export default function NewArrivals() {
       {/* PRODUCT GRID                              */}
       {/* ========================================= */}
       <div className="w-full px-4 md:px-0">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 border-t border-b border-gray-200/50">
+        <div className="flex overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-0 border-t border-b border-gray-200/50">
           {currentProducts.map((product, index) => (
-            <ProductCard 
-              key={product.id} 
-              product={product} 
-              className={index !== 3 ? 'lg:border-r border-gray-200/50' : ''} 
+            <ProductCard
+              key={product.id}
+              product={product}
+              className={`min-w-[62%] snap-start md:min-w-0 ${index !== 3 ? 'lg:border-r border-gray-200/50' : ''}`}
             />
           ))}
         </div>

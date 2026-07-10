@@ -13,12 +13,12 @@ export default function CategorySection({ categories }: { categories: Category[]
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full gap-1 md:gap-0">
+      <div className="flex overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 lg:grid-cols-4 w-full gap-1 md:gap-0">
         {categories.map((category, index) => (
           <Link
             key={category.id}
             href={`/${category.slug}`}
-            className={`group relative flex flex-col items-center justify-center w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden bg-zinc-900 ${
+            className={`group relative flex flex-col items-center justify-center w-full min-w-[68%] snap-start md:min-w-0 aspect-[4/5] md:aspect-[3/4] overflow-hidden bg-zinc-900 ${
               index !== categories.length - 1 ? 'lg:border-r border-white/10' : ''
             }`}
           >

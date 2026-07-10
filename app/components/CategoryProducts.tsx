@@ -159,7 +159,7 @@ export default function CategoryProducts({ products, title }: { products: Catego
           <p>No items match your filters.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 border-t border-b border-gray-200/50">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 border-t border-b border-gray-200/50">
           {visible.map((product, index) => {
             const firstVariant = product.product_variants[0];
             const mappedProduct = {
