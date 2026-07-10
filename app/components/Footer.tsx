@@ -45,7 +45,9 @@ export default function Footer({ categories }: { categories: Category[] }) {
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between gap-16 md:gap-8 mb-20">
           
           <div className="w-full md:w-1/3 flex flex-col">
-            <h3 className="text-3xl font-black italic tracking-wider mb-6">yzs</h3>
+            <h3 className="mb-6">
+              <Image src="/yzs-logo.svg" alt="YZS" width={79} height={32} />
+            </h3>
             <p className="text-xs font-medium tracking-wide text-gray-400 leading-relaxed mb-8 max-w-xs">
               Join the collective. Subscribe for exclusive releases, early access, and inside stories.
             </p>

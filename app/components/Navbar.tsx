@@ -11,11 +11,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
   const [lang, setLang] = useState<"EN" | "RU">("EN");
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const isProductPage = pathname?.startsWith("/products/");
-  const isCartPage = pathname === "/cart";
-  const isSavedPage = pathname === "/saved";
-
-  const forceBackground = isProductPage || isCartPage || isSavedPage;
+  const forceBackground = pathname !== "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,7 +50,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
 
       <div className="absolute left-1/2 -translate-x-1/2">
         <Link href="/">
-          <span className="text-3xl font-black italic tracking-wider">yzs</span>
+          <Image src="/yzs-logo.svg" alt="YZS" width={74} height={30} priority />
         </Link>
       </div>
 
