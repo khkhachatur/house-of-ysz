@@ -6,8 +6,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import LiquidButton from "./LiquidButton";
 
 const SLIDES = [
-  { src: "/yzs-hero.jpg", alt: "yzs Spy Collection", title: "SPY", subtitle: "COLLECTION", titleClass: "text-[160px]" },
-  { src: "/yzs-hero-2.jpg", alt: "yzs Just Dance Collection", title: "JUST DANCE", subtitle: "COLLECTION", titleClass: "text-[54px] whitespace-nowrap" },
+  { src: "/yzs-hero.jpg", alt: "yzs Spy Collection", title: "SPY", subtitle: "COLLECTION", titleClass: "text-[96px] md:text-[160px]" },
+  { src: "/yzs-hero-2.jpg", alt: "yzs Just Dance Collection", title: "JUST DANCE", subtitle: "COLLECTION", titleClass: "text-[32px] md:text-[54px] whitespace-nowrap" },
 ];
 
 const ROTATE_MS = 7000;
@@ -54,7 +54,7 @@ export default function Hero() {
       ))}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-[1]" />
 
-      <div className="absolute bottom-24 left-10 text-white z-10">
+      <div className="absolute bottom-16 left-6 md:bottom-24 md:left-10 text-white z-10">
         <motion.div
           variants={containerVars}
           initial="hidden"
@@ -73,7 +73,7 @@ export default function Hero() {
               <span className={`${SLIDES[index].titleClass} font-black italic tracking-tighter text-gray-200 drop-shadow-md`}>
                 {SLIDES[index].title}
               </span>
-              <span className="text-[40px] font-light tracking-[0.2em] mt-4 text-white">
+              <span className="text-[26px] md:text-[40px] font-light tracking-[0.2em] mt-2 md:mt-4 text-white">
                 {SLIDES[index].subtitle}
               </span>
             </motion.h1>
