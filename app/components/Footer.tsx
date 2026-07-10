@@ -3,8 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import type { Category } from "../types";
 
-export default function Footer() {
+export default function Footer({ categories }: { categories: Category[] }) {
   const tickerText = Array(12).fill("yzs ");
 
   return (
@@ -17,7 +18,7 @@ export default function Footer() {
         className="object-cover opacity-20 grayscale pointer-events-none" 
       />
       <div className="relative z-10 w-full overflow-hidden py-10 md:py-14 border-t border-white/10 flex items-center">
-        <div className="relative z-10 flex whitespace-nowrap w-full overflow-hidden">
+        <div className="relative z-10 flex whitespace-nowrap w-full">
           <motion.div 
             className="flex items-center"
             animate={{ x: ["0%", "-50%"] }} 
@@ -65,10 +66,11 @@ export default function Footer() {
             
             <div className="flex flex-col gap-5">
               <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-1">Shop</h4>
-              <Link href="/t-shirts" className="text-[11px] tracking-widest uppercase hover:text-white transition-colors">T-Shirts</Link>
-              <Link href="/hoodies" className="text-[11px] tracking-widest uppercase hover:text-white transition-colors">Hoodies</Link>
-              <Link href="/long-sleeves" className="text-[11px] tracking-widest uppercase hover:text-white transition-colors">Long Sleeves</Link>
-              <Link href="/accessories" className="text-[11px] tracking-widest uppercase hover:text-white transition-colors">Accessories</Link>
+              {categories.map((c) => (
+                <Link key={c.id} href={`/${c.slug}`} className="text-[11px] tracking-widest uppercase hover:text-white transition-colors">
+                  {c.title_en}
+                </Link>
+              ))}
             </div>
 
             <div className="flex flex-col gap-5">
