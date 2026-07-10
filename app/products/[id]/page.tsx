@@ -11,11 +11,11 @@ export default function ProductPage({ params }: { params: { id: string } }) {
       {/* ========================================= */}
       {/* LEFT COLUMN: 60% Width Image Stack        */}
       {/* ========================================= */}
-      <div className="w-full md:w-[50%] flex flex-col border-r border-gray-100">
-        <div className="relative w-full aspect-[3/4] md:h-screen bg-gray-100">
+      <div className="w-full md:w-[50%] flex flex-row overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:flex-col md:overflow-x-visible border-r border-gray-100">
+        <div className="relative w-full min-w-[90%] snap-start md:min-w-0 aspect-[3/4] md:h-screen bg-gray-100">
           <Image src={product.imageSrc} alt={product.name} fill className="object-cover" priority />
         </div>
-        <div className="relative w-full aspect-[3/4] md:h-screen bg-gray-50 border-t border-gray-100">
+        <div className="relative w-full min-w-[90%] snap-start md:min-w-0 aspect-[3/4] md:h-screen bg-gray-50 md:border-t border-gray-100">
           <Image src="/images/products/bag/bag-4.jpg" alt="Detail" fill className="object-cover" />
         </div>
       </div>
@@ -58,8 +58,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
           </LiquidButton>
 
           {/* Accordion Style Details */}
-          <div className="border-t border-gray-100 pt-8 space-y-6">
-            <details className="group cursor-pointer">
+          <div className="border-t border-gray-100 pt-8 space-y-4">
+            <details className="group cursor-pointer bg-gray-50 px-5 py-4">
               <summary className="list-none flex justify-between items-center text-[10px] font-bold uppercase tracking-widest">
                 Description
                 <span className="group-open:rotate-180 transition-transform">↓</span>
@@ -68,8 +68,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                 Ручная работа. Полуэфирная ткань, вязана крючком. Стирать желательно при 30 градусах.
               </p>
             </details>
-            
-            <details className="group cursor-pointer border-t border-gray-100 pt-4">
+
+            <details className="group cursor-pointer bg-gray-50 px-5 py-4">
               <summary className="list-none flex justify-between items-center text-[10px] font-bold uppercase tracking-widest">
                 Shipping & Returns
                 <span className="group-open:rotate-180 transition-transform">↓</span>

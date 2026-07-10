@@ -116,7 +116,7 @@ export default function CategoryProducts({ products, title }: { products: Catego
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden"
           >
-            <div className="flex flex-wrap gap-x-12 gap-y-6 pb-8 mb-6 border-b border-gray-200">
+            <div className="flex flex-wrap gap-x-12 gap-y-6 bg-gray-50 p-6 mb-8">
               <div className="flex flex-col gap-3">
                 <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Size</span>
                 <div className="flex gap-2">

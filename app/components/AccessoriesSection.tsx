@@ -11,26 +11,45 @@ export default function AccessoriesSection() {
     transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
   };
 
+  const bagImages = [
+    "/images/products/bag/bag-1.jpg",
+    "/images/products/bag/bag-2.jpg",
+    "/images/products/bag/bag-3.jpg",
+    "/images/products/bag/bag-4.jpg",
+    "/images/products/bag/bag-5.jpg",
+  ];
+
   return (
-    <section className="relative w-full h-[120vh] md:h-[130vh] bg-white overflow-hidden flex items-center justify-center">
-      
+    <section className="relative w-full md:h-[130vh] bg-white overflow-hidden flex flex-col md:flex-row items-center justify-center py-16 md:py-0">
+
       {/* ========================================= */}
       {/* LAYER 1: CENTER TYPOGRAPHY & BUTTON       */}
       {/* ========================================= */}
-      <div className="relative z-20 flex flex-col items-center justify-center text-center mt-[-10vh]">
+      <div className="relative z-20 flex flex-col items-center justify-center text-center md:mt-[-10vh] mb-10 md:mb-0">
         <h2 className="text-[32px] md:text-[50px] font-light tracking-[0.2em] uppercase text-black mb-4">
           Accessories
         </h2>
-        
+
        <LiquidButton variant="black" className="px-10 py-3">
           Shop Now
         </LiquidButton>
       </div>
 
       {/* ========================================= */}
-      {/* LAYER 2: ORBITING IMAGE GRID              */}
+      {/* MOBILE: HORIZONTAL SWIPE ROW              */}
       {/* ========================================= */}
-      <div className="absolute inset-0 w-full h-full max-w-[1400px] mx-auto pointer-events-none">
+      <div className="w-full flex md:hidden overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden gap-3 px-6">
+        {bagImages.map((src) => (
+          <div key={src} className="relative min-w-[58%] aspect-[4/5] snap-start overflow-hidden">
+            <Image src={src} alt="yzs Bag" fill sizes="58vw" className="object-cover" />
+          </div>
+        ))}
+      </div>
+
+      {/* ========================================= */}
+      {/* LAYER 2: ORBITING IMAGE GRID (DESKTOP)    */}
+      {/* ========================================= */}
+      <div className="absolute inset-0 w-full h-full max-w-[1400px] mx-auto pointer-events-none hidden md:block">
         
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
