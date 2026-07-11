@@ -71,7 +71,7 @@ export default function CartPage() {
           
           <div className="flex justify-between text-lg font-black uppercase tracking-widest mb-10">
             <span>Total</span>
-            <span>{subtotal.toFixed(2).replace(".", ",")} EUR</span>
+            <span>{subtotal.toFixed(2)} USD</span>
           </div>
 
           <LiquidButton variant="black" className="w-full py-4">
