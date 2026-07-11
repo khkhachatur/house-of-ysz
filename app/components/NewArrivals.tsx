@@ -1,10 +1,10 @@
 "use client";
 
-import { newArrivalsData } from "../data/products"; 
+import { Product } from "../data/products";
 import ProductCard from "./ProductCard";
 
-export default function NewArrivals() {
-  const currentProducts = newArrivalsData.slice(0, 4);
+export default function NewArrivals({ products }: { products: Product[] }) {
+  const currentProducts = products.slice(0, 4);
 
   return (
     <section className="w-full bg-white text-black py-20 overflow-hidden">

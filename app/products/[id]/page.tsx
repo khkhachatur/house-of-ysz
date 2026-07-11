@@ -1,86 +1,106 @@
 import Image from "next/image";
-import LiquidButton from "../../components/LiquidButton";
-import { newArrivalsData } from "../../data/products";
+import { notFound } from "next/navigation";
+import { supabase } from "../../utils/supabase";
+import ProductInfo from "../../components/ProductInfo";
 
-export default function ProductPage({ params }: { params: { id: string } }) {
-  const product = newArrivalsData.find(p => p.id === params.id) || newArrivalsData[0];
+interface GalleryImage {
+  image_url: string;
+  display_order: number;
+}
+interface SizeRow {
+  size_label: string;
+  stock_quantity: number;
+}
+interface VariantRow {
+  cover_image: string;
+  variant_images: GalleryImage[];
+  variant_sizes: SizeRow[];
+}
+interface ProductRow {
+  id: string;
+  brand_primary: string;
+  name_en: string;
+  category: string;
+  price: number;
+  currency: string;
+  description_en: string | null;
+  product_variants: VariantRow[];
+}
+
+export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+
+  const { data } = await supabase
+    .from("products")
+    .select(`
+      id, brand_primary, name_en, category, price, currency, description_en,
+      product_variants (
+        cover_image,
+        variant_images ( image_url, display_order ),
+        variant_sizes ( size_label, stock_quantity )
+      )
+    `)
+    .eq("id", id)
+    .maybeSingle();
+
+  const product = data as ProductRow | null;
+  const variant = product?.product_variants?.[0];
+  if (!product || !variant) {
+    notFound();
+  }
+
+  const gallery = [...variant.variant_images]
+    .sort((a, b) => a.display_order - b.display_order)
+    .map((img) => img.image_url);
+  const images = gallery.length > 0 ? gallery : [variant.cover_image];
+
+  const sizeOrder = ["XS", "S", "M", "L", "XL", "XXL"];
+  const sizes = [...variant.variant_sizes]
+    .sort((a, b) => sizeOrder.indexOf(a.size_label) - sizeOrder.indexOf(b.size_label))
+    .map((s) => ({ label: s.size_label, inStock: s.stock_quantity > 0 }));
 
   return (
     <main className="w-full min-h-screen bg-white text-black flex flex-col md:flex-row pt-20 md:pt-0">
-      
+
       {/* ========================================= */}
-      {/* LEFT COLUMN: 60% Width Image Stack        */}
+      {/* LEFT COLUMN: Image Gallery                */}
       {/* ========================================= */}
       <div className="w-full md:w-[50%] flex flex-row overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:flex-col md:overflow-x-visible border-r border-gray-100">
-        <div className="relative w-full min-w-[90%] snap-start md:min-w-0 aspect-[3/4] md:h-screen bg-gray-100">
-          <Image src={product.imageSrc} alt={product.name} fill className="object-cover" priority />
-        </div>
-        <div className="relative w-full min-w-[90%] snap-start md:min-w-0 aspect-[3/4] md:h-screen bg-gray-50 md:border-t border-gray-100">
-          <Image src="/images/products/bag/bag-4.jpg" alt="Detail" fill className="object-cover" />
-        </div>
+        {images.map((src, i) => (
+          <div
+            key={src}
+            className={`relative w-full min-w-[90%] snap-start md:min-w-0 aspect-[3/4] md:h-screen bg-gray-100 ${i > 0 ? "md:border-t border-gray-100" : ""}`}
+          >
+            <Image
+              src={src}
+              alt={`${product.name_en} — photo ${i + 1}`}
+              fill
+              sizes="(max-width: 768px) 90vw, 50vw"
+              className="object-cover"
+              priority={i === 0}
+            />
+          </div>
+        ))}
       </div>
 
       {/* ========================================= */}
-      {/* RIGHT COLUMN: 40% Width Sticky Info       */}
+      {/* RIGHT COLUMN: Sticky Info                 */}
       {/* ========================================= */}
       <div className="w-full md:w-[50%] md:h-screen md:sticky md:top-0 overflow-y-auto">
-        <div className="flex flex-col p-8 md:p-12 lg:p-16 pt-16 md:pt-32">
-          
-          <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-2">
-            {product.brand}
-          </div>
-          
-          <h1 className="text-3xl md:text-4xl font-black italic tracking-wider mb-4 uppercase">
-            {product.name}
-          </h1>
-          
-          <p className="text-sm font-medium tracking-wide mb-10">
-            {product.price}
-          </p>
-
-          {/* Size Selector */}
-          <div className="mb-10">
-            <div className="flex justify-between text-[10px] font-bold tracking-[0.15em] uppercase mb-4">
-              <span>Select Size</span>
-              <button className="underline opacity-50 hover:opacity-100">Size Guide</button>
-            </div>
-            <div className="grid grid-cols-4 gap-2">
-              {["S", "M", "L", "XL"].map(size => (
-                <button key={size} className="border border-gray-200 py-3 text-xs font-medium hover:border-black transition-all">
-                  {size}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <LiquidButton variant="black" className="w-full py-4 mb-10">
-            Add To Cart
-          </LiquidButton>
-
-          {/* Accordion Style Details */}
-          <div className="border-t border-gray-100 pt-8 space-y-4">
-            <details className="group cursor-pointer bg-gray-50 px-5 py-4">
-              <summary className="list-none flex justify-between items-center text-[10px] font-bold uppercase tracking-widest">
-                Description
-                <span className="group-open:rotate-180 transition-transform">↓</span>
-              </summary>
-              <p className="pt-4 text-xs leading-relaxed text-gray-600">
-                Ручная работа. Полуэфирная ткань, вязана крючком. Стирать желательно при 30 градусах.
-              </p>
-            </details>
-
-            <details className="group cursor-pointer bg-gray-50 px-5 py-4">
-              <summary className="list-none flex justify-between items-center text-[10px] font-bold uppercase tracking-widest">
-                Shipping & Returns
-                <span className="group-open:rotate-180 transition-transform">↓</span>
-              </summary>
-              <p className="pt-4 text-xs leading-relaxed text-gray-600">
-                Worldwide shipping available. Returns accepted within 14 days.
-              </p>
-            </details>
-          </div>
-
-        </div>
+        <ProductInfo
+          product={{
+            id: product.id,
+            brand: product.brand_primary,
+            name: product.name_en,
+            price: `${product.price} ${product.currency}`,
+            description:
+              product.description_en ||
+              "Premium heavyweight fabric. Designed and printed by YZS.",
+            imageSrc: images[0],
+            category: product.category,
+            sizes,
+          }}
+        />
       </div>
     </main>
   );
