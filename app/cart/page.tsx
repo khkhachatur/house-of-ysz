@@ -34,11 +34,10 @@ export default function CartPage() {
                 <div className="flex flex-col justify-between flex-grow py-2">
                   <div>
                     <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-1">{item.brand}</div>
-                    <Link href={`/products/${item.id}`} className="text-lg md:text-xl font-black italic uppercase hover:opacity-60 transition-opacity">
+                    <Link href={`/products/${item.id.split(":")[0]}`} className="text-lg md:text-xl font-black italic uppercase hover:opacity-60 transition-opacity">
                       {item.name}
                     </Link>
                     <div className="text-sm font-medium tracking-wide mt-2">{item.price}</div>
-                    <div className="text-[10px] font-bold tracking-widest text-gray-500 mt-4 uppercase">Size: M</div>
                   </div>
                   
                   <button 
@@ -62,7 +61,7 @@ export default function CartPage() {
           <div className="flex flex-col gap-4 text-sm font-medium tracking-wide mb-8 border-b border-gray-200 pb-8">
             <div className="flex justify-between">
               <span className="text-gray-500">Subtotal</span>
-              <span>{subtotal.toFixed(2).replace(".", ",")} EUR</span>
+              <span>{subtotal.toFixed(2)} USD</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500">Shipping</span>

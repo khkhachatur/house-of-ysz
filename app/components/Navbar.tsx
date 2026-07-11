@@ -39,6 +39,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
   const showBackground = isScrolled || forceBackground;
 
   return (
+    <>
     <nav
       className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-10 transition-all duration-500 text-white ${
         showBackground
@@ -96,14 +97,16 @@ export default function Navbar({ categories }: { categories: Category[] }) {
         </div>
       </div>
 
-      <AnimatePresence>
+    </nav>
+
+    <AnimatePresence>
         {menuOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-black z-[60] flex flex-col md:hidden"
+            className="fixed inset-0 bg-black z-[60] flex flex-col text-white md:hidden"
           >
             <div className="flex items-center justify-between px-6 py-5">
               <Link href="/" onClick={() => setMenuOpen(false)}>
@@ -143,7 +146,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
-    </nav>
+    </AnimatePresence>
+    </>
   );
 }
