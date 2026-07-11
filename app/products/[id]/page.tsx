@@ -69,7 +69,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         {images.map((src, i) => (
           <div
             key={src}
-            className={`relative w-full min-w-[90%] snap-start md:min-w-0 aspect-[3/4] md:h-screen bg-gray-100 ${i > 0 ? "md:border-t border-gray-100" : ""}`}
+            className={`relative w-full min-w-[90%] snap-start md:min-w-0 aspect-[3/4] bg-gray-100 ${i > 0 ? "md:border-t border-gray-100" : ""}`}
           >
             <Image
               src={src}
