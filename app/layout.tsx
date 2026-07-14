@@ -1,9 +1,12 @@
 import localFont from 'next/font/local';
+import { cookies } from "next/headers";
 import Navbar from "./components/Navbar";
 import { StoreProvider } from "../context/StoreContext";
+import { LanguageProvider } from "../context/LanguageContext";
 import "./globals.css";
 import Footer from './components/Footer';
 import { supabase } from "./utils/supabase";
+import { isLocale, LOCALE_COOKIE, type Locale } from "./i18n/dictionary";
 import type { Category } from "./types";
 
 export const dynamic = "force-dynamic";
@@ -38,20 +41,25 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { data } = await supabase
-    .from("categories")
-    .select("*")
-    .order("display_order");
+  const [{ data }, cookieStore] = await Promise.all([
+    supabase.from("categories").select("*").order("display_order"),
+    cookies(),
+  ]);
   const categories: Category[] = data ?? [];
 
+  const cookieLocale = cookieStore.get(LOCALE_COOKIE)?.value;
+  const locale: Locale = isLocale(cookieLocale) ? cookieLocale : "en";
+
   return (
-    <html lang="en" className={`${rebelton.variable} ${rebeltonExtended.variable}`}>
+    <html lang={locale} className={`${rebelton.variable} ${rebeltonExtended.variable}`}>
       <body className="antialiased bg-black min-h-screen font-sans text-white">
-        <StoreProvider>
-          <Navbar categories={categories} />
-          <main>{children}</main>
-          <Footer categories={categories} />
-        </StoreProvider>
+        <LanguageProvider initialLocale={locale}>
+          <StoreProvider>
+            <Navbar categories={categories} />
+            <main>{children}</main>
+            <Footer categories={categories} />
+          </StoreProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

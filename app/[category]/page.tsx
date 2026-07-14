@@ -3,18 +3,24 @@ import CategoryProducts, { CategoryProductRow } from "../components/CategoryProd
 
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
-  const displayTitle = category.replace("-", " ");
 
-  const { data: products, error } = await supabase
-    .from("products")
-    .select(`
-      *,
-      product_variants (
+  const [{ data: products, error }, { data: categoryRow }] = await Promise.all([
+    supabase
+      .from("products")
+      .select(`
         *,
-        variant_sizes (*)
-      )
-    `)
-    .eq("category", category);
+        product_variants (
+          *,
+          variant_sizes (*)
+        )
+      `)
+      .eq("category", category),
+    supabase
+      .from("categories")
+      .select("title_en, title_ru")
+      .eq("slug", category)
+      .maybeSingle(),
+  ]);
 
   if (error) {
     console.error("Error fetching products:", error);
@@ -25,7 +31,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
       <div className="max-w-[1400px] mx-auto">
         <CategoryProducts
           products={(products ?? []) as CategoryProductRow[]}
-          title={displayTitle}
+          title={categoryRow?.title_en ?? category.replace("-", " ")}
+          titleRu={categoryRow?.title_ru}
         />
       </div>
     </main>

@@ -1,7 +1,9 @@
 import Image from "next/image";
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { supabase } from "../../utils/supabase";
 import ProductInfo from "../../components/ProductInfo";
+import { dictionaries, isLocale, LOCALE_COOKIE, pick, type Locale } from "../../i18n/dictionary";
 
 interface GalleryImage {
   image_url: string;
@@ -20,20 +22,24 @@ interface ProductRow {
   id: string;
   brand_primary: string;
   name_en: string;
+  name_ru: string | null;
   category: string;
   price: number;
   currency: string;
   description_en: string | null;
+  description_ru: string | null;
   product_variants: VariantRow[];
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+  const [{ id }, cookieStore] = await Promise.all([params, cookies()]);
+  const cookieLocale = cookieStore.get(LOCALE_COOKIE)?.value;
+  const locale: Locale = isLocale(cookieLocale) ? cookieLocale : "en";
 
   const { data } = await supabase
     .from("products")
     .select(`
-      id, brand_primary, name_en, category, price, currency, description_en,
+      id, brand_primary, name_en, name_ru, category, price, currency, description_en, description_ru,
       product_variants (
         cover_image,
         variant_images ( image_url, display_order ),
@@ -73,7 +79,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           >
             <Image
               src={src}
-              alt={`${product.name_en} — photo ${i + 1}`}
+              alt={`${pick(locale, product.name_en, product.name_ru)} — ${dictionaries[locale].product.photo} ${i + 1}`}
               fill
               sizes="(max-width: 768px) 90vw, 50vw"
               className="object-cover"
@@ -92,10 +98,10 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
             id: product.id,
             brand: product.brand_primary,
             name: product.name_en,
+            nameRu: product.name_ru,
             price: `${product.price} ${product.currency}`,
-            description:
-              product.description_en ||
-              "Premium heavyweight fabric. Designed and printed by YZS.",
+            description: product.description_en,
+            descriptionRu: product.description_ru,
             imageSrc: images[0],
             category: product.category,
             sizes,

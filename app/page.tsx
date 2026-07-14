@@ -9,7 +9,7 @@ export default async function Home() {
     supabase.from("categories").select("*").order("display_order"),
     supabase
       .from("products")
-      .select("id, name_en, brand_primary, price, currency, category, created_at, product_variants(cover_image)")
+      .select("id, name_en, name_ru, brand_primary, price, currency, category, created_at, product_variants(cover_image)")
       .order("created_at", { ascending: false })
       .limit(4),
   ]);
@@ -18,6 +18,7 @@ export default async function Home() {
     id: p.id as string,
     brand: p.brand_primary as string,
     name: p.name_en as string,
+    name_ru: (p.name_ru as string | null) ?? undefined,
     price: `${p.price} ${p.currency}`,
     imageSrc:
       (p.product_variants as { cover_image: string }[])?.[0]?.cover_image ||

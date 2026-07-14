@@ -3,13 +3,17 @@
 import { useState } from "react";
 import LiquidButton from "./LiquidButton";
 import { useStore } from "@/context/StoreContext";
+import { useLang } from "@/context/LanguageContext";
+import { pick } from "../i18n/dictionary";
 
 export interface ProductInfoData {
   id: string;
   brand: string;
   name: string;
+  nameRu?: string | null;
   price: string;
-  description: string;
+  description: string | null;
+  descriptionRu?: string | null;
   imageSrc: string;
   category: string;
   sizes: { label: string; inStock: boolean }[];
@@ -17,8 +21,15 @@ export interface ProductInfoData {
 
 export default function ProductInfo({ product }: { product: ProductInfoData }) {
   const { addToCart } = useStore();
+  const { locale, t } = useLang();
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [sizeError, setSizeError] = useState(false);
+
+  const name = pick(locale, product.name, product.nameRu);
+  const description =
+    (locale === "ru" && product.descriptionRu) ||
+    product.description ||
+    t.product.defaultDescription;
 
   const handleAdd = () => {
     if (!selectedSize) {
@@ -29,6 +40,7 @@ export default function ProductInfo({ product }: { product: ProductInfoData }) {
       id: `${product.id}:${selectedSize}`,
       brand: product.brand,
       name: `${product.name} — ${selectedSize}`,
+      name_ru: product.nameRu ? `${product.nameRu} — ${selectedSize}` : undefined,
       price: product.price,
       imageSrc: product.imageSrc,
       category: product.category,
@@ -42,7 +54,7 @@ export default function ProductInfo({ product }: { product: ProductInfoData }) {
       </div>
 
       <h1 className="text-3xl md:text-4xl font-black italic tracking-wider mb-4 uppercase">
-        {product.name}
+        {name}
       </h1>
 
       <p className="text-sm font-medium tracking-wide mb-10">
@@ -52,8 +64,8 @@ export default function ProductInfo({ product }: { product: ProductInfoData }) {
       {/* Size Selector */}
       <div className="mb-10">
         <div className="flex justify-between text-[10px] font-bold tracking-[0.15em] uppercase mb-4">
-          <span>Select Size</span>
-          <button className="underline opacity-50 hover:opacity-100">Size Guide</button>
+          <span>{t.product.selectSize}</span>
+          <button className="underline opacity-50 hover:opacity-100">{t.product.sizeGuide}</button>
         </div>
         <div className="grid grid-cols-4 gap-2">
           {product.sizes.map(({ label, inStock }) => (
@@ -74,33 +86,33 @@ export default function ProductInfo({ product }: { product: ProductInfoData }) {
           ))}
         </div>
         {sizeError && (
-          <p className="text-[10px] tracking-widest uppercase text-red-600 mt-3">Please select a size</p>
+          <p className="text-[10px] tracking-widest uppercase text-red-600 mt-3">{t.product.sizeError}</p>
         )}
       </div>
 
       <LiquidButton variant="black" className="w-full py-4 mb-10" onClick={handleAdd}>
-        Add To Cart
+        {t.product.addToCart}
       </LiquidButton>
 
       {/* Accordion Style Details */}
       <div className="border-t border-gray-100 pt-8 space-y-4">
         <details className="group cursor-pointer bg-gray-50 px-5 py-4">
           <summary className="list-none flex justify-between items-center text-[10px] font-bold uppercase tracking-widest">
-            Description
+            {t.product.description}
             <span className="group-open:rotate-180 transition-transform">↓</span>
           </summary>
           <p className="pt-4 text-xs leading-relaxed text-gray-600">
-            {product.description}
+            {description}
           </p>
         </details>
 
         <details className="group cursor-pointer bg-gray-50 px-5 py-4">
           <summary className="list-none flex justify-between items-center text-[10px] font-bold uppercase tracking-widest">
-            Shipping & Returns
+            {t.product.shippingReturns}
             <span className="group-open:rotate-180 transition-transform">↓</span>
           </summary>
           <p className="pt-4 text-xs leading-relaxed text-gray-600">
-            Worldwide shipping available. Returns accepted within 14 days.
+            {t.product.shippingText}
           </p>
         </details>
       </div>

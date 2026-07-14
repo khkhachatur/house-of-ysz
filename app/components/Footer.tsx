@@ -3,9 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useLang } from "@/context/LanguageContext";
+import { pick } from "../i18n/dictionary";
 import type { Category } from "../types";
 
 export default function Footer({ categories }: { categories: Category[] }) {
+  const { locale, t } = useLang();
   const tickerText = Array(12).fill("yzs ");
 
   return (
@@ -49,17 +52,17 @@ export default function Footer({ categories }: { categories: Category[] }) {
               <Image src="/yzs-logo.svg" alt="YZS" width={79} height={32} />
             </h3>
             <p className="text-xs font-medium tracking-wide text-gray-400 leading-relaxed mb-8 max-w-xs">
-              Join the collective. Subscribe for exclusive releases, early access, and inside stories.
+              {t.footer.newsletter}
             </p>
-            
+
             <div className="flex w-full max-w-sm border-b border-white/30 focus-within:border-white transition-colors pb-2">
-              <input 
-                type="email" 
-                placeholder="EMAIL ADDRESS" 
+              <input
+                type="email"
+                placeholder={t.footer.emailPlaceholder}
                 className="bg-transparent w-full py-2 text-xs tracking-widest outline-none placeholder-gray-600"
               />
               <button className="text-[10px] font-bold tracking-[0.2em] uppercase hover:text-gray-400 transition-colors">
-                Submit
+                {t.footer.submit}
               </button>
             </div>
           </div>
@@ -67,24 +70,24 @@ export default function Footer({ categories }: { categories: Category[] }) {
           <div className="w-full md:w-2/3 grid grid-cols-2 md:grid-cols-3 gap-12 md:gap-8">
             
             <div className="flex flex-col gap-5">
-              <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-1">Shop</h4>
+              <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-1">{t.footer.shop}</h4>
               {categories.map((c) => (
                 <Link key={c.id} href={`/${c.slug}`} className="text-[11px] tracking-widest uppercase hover:text-white transition-colors">
-                  {c.title_en}
+                  {pick(locale, c.title_en, c.title_ru)}
                 </Link>
               ))}
             </div>
 
             <div className="flex flex-col gap-5">
-              <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-1">Support</h4>
-              <Link href="/shipping" className="text-[11px] tracking-widest uppercase hover:text-white transition-colors">Shipping & Returns</Link>
-              <Link href="/size-guide" className="text-[11px] tracking-widest uppercase hover:text-white transition-colors">Size Guide</Link>
-              <Link href="/faq" className="text-[11px] tracking-widest uppercase hover:text-white transition-colors">FAQ</Link>
-              <Link href="/story" className="text-[11px] tracking-widest uppercase hover:text-white transition-colors">Brand's Story</Link>
+              <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-1">{t.footer.support}</h4>
+              <Link href="/shipping" className="text-[11px] tracking-widest uppercase hover:text-white transition-colors">{t.footer.shippingReturns}</Link>
+              <Link href="/size-guide" className="text-[11px] tracking-widest uppercase hover:text-white transition-colors">{t.footer.sizeGuide}</Link>
+              <Link href="/faq" className="text-[11px] tracking-widest uppercase hover:text-white transition-colors">{t.footer.faq}</Link>
+              <Link href="/story" className="text-[11px] tracking-widest uppercase hover:text-white transition-colors">{t.nav.story}</Link>
             </div>
 
             <div className="flex flex-col gap-5 col-span-2 md:col-span-1">
-              <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-1">Contact</h4>
+              <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-1">{t.footer.contact}</h4>
               <a href="mailto:houseofyzs@gmail.com" className="text-[11px] tracking-widest hover:text-white transition-colors lowercase">
                 houseofyzs@gmail.com
               </a>
@@ -92,7 +95,7 @@ export default function Footer({ categories }: { categories: Category[] }) {
                 ARM: 077 250 201
               </a>
               
-              <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mt-2 mb-1">Socials</h4>
+              <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mt-2 mb-1">{t.footer.socials}</h4>
               <a 
                 href="https://www.instagram.com/the.yzs?igsh=MW12dDRqY21hZHE0&utm_source=qr" 
                 target="_blank" 
@@ -110,10 +113,10 @@ export default function Footer({ categories }: { categories: Category[] }) {
         </div>
 
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 text-[9px] font-bold tracking-[0.2em] uppercase text-gray-500 gap-6">
-          <div>© {new Date().getFullYear()} yzs. All Rights Reserved.</div>
+          <div>© {new Date().getFullYear()} yzs. {t.footer.rights}</div>
           <div className="flex gap-8">
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">{t.footer.privacy}</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">{t.footer.terms}</Link>
           </div>
         </div>
       </div>

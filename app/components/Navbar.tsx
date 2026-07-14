@@ -5,11 +5,13 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLang } from "@/context/LanguageContext";
+import { pick } from "../i18n/dictionary";
 import type { Category } from "../types";
 
 export default function Navbar({ categories }: { categories: Category[] }) {
   const pathname = usePathname();
-  const [lang, setLang] = useState<"EN" | "RU">("EN");
+  const { locale, t, toggleLocale } = useLang();
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -32,10 +34,6 @@ export default function Navbar({ categories }: { categories: Category[] }) {
     setMenuOpen(false);
   }, [pathname]);
 
-  const toggleLanguage = () => {
-    setLang((prev) => (prev === "EN" ? "RU" : "EN"));
-  };
-
   const showBackground = isScrolled || forceBackground;
 
   return (
@@ -49,7 +47,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
     >
       <button
         onClick={() => setMenuOpen(true)}
-        aria-label="Open menu"
+        aria-label={t.nav.openMenu}
         className="md:hidden hover:opacity-70 transition-opacity"
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
@@ -60,7 +58,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
       <div className="hidden md:flex items-center gap-8 text-[11px] tracking-widest uppercase">
         {categories.map((c) => (
           <Link key={c.id} href={`/${c.slug}`} className="hover:opacity-70 transition-opacity">
-            {c.title_en}
+            {pick(locale, c.title_en, c.title_ru)}
           </Link>
         ))}
       </div>
@@ -72,27 +70,27 @@ export default function Navbar({ categories }: { categories: Category[] }) {
       </div>
 
       <div className="flex items-center gap-8 text-[11px] tracking-widest uppercase">
-        <Link href="/story" className="hidden md:block hover:opacity-70 transition-opacity">Brand's Story</Link>
+        <Link href="/story" className="hidden md:block hover:opacity-70 transition-opacity">{t.nav.story}</Link>
 
-        <button onClick={toggleLanguage} className="hidden md:block hover:opacity-70 transition-opacity w-6 text-center font-medium">
-          {lang}
+        <button onClick={toggleLocale} className="hidden md:block hover:opacity-70 transition-opacity w-6 text-center font-medium">
+          {locale.toUpperCase()}
         </button>
 
         <div className="flex items-center gap-5 md:ml-4">
           <button className="hidden md:block hover:opacity-70 transition-opacity">
-            <Image src="/icons/search.svg" alt="Search" width={18} height={18} />
+            <Image src="/icons/search.svg" alt={t.nav.search} width={18} height={18} />
           </button>
 
           <Link href="/saved" className="hover:opacity-70 transition-opacity">
-            <Image src="/icons/bookmark.svg" alt="Bookmark" width={18} height={18} />
+            <Image src="/icons/bookmark.svg" alt={t.nav.saved} width={18} height={18} />
           </Link>
 
           <button className="hidden md:block hover:opacity-70 transition-opacity">
-            <Image src="/icons/user.svg" alt="Account" width={18} height={18} />
+            <Image src="/icons/user.svg" alt={t.nav.account} width={18} height={18} />
           </button>
 
           <Link href="/cart" className="hover:opacity-70 transition-opacity">
-            <Image src="/icons/bag.svg" alt="Cart" width={18} height={18} />
+            <Image src="/icons/bag.svg" alt={t.nav.cart} width={18} height={18} />
           </Link>
         </div>
       </div>
@@ -112,7 +110,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
               <Link href="/" onClick={() => setMenuOpen(false)}>
                 <span className="text-2xl font-black italic tracking-wider">yzs</span>
               </Link>
-              <button onClick={() => setMenuOpen(false)} aria-label="Close menu" className="hover:opacity-70 transition-opacity">
+              <button onClick={() => setMenuOpen(false)} aria-label={t.nav.closeMenu} className="hover:opacity-70 transition-opacity">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
                   <path d="M18 6 6 18M6 6l12 12" />
                 </svg>
@@ -127,7 +125,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
                   onClick={() => setMenuOpen(false)}
                   className="text-3xl font-black italic tracking-wider uppercase hover:opacity-70 transition-opacity"
                 >
-                  {c.title_en}
+                  {pick(locale, c.title_en, c.title_ru)}
                 </Link>
               ))}
               <Link
@@ -135,14 +133,14 @@ export default function Navbar({ categories }: { categories: Category[] }) {
                 onClick={() => setMenuOpen(false)}
                 className="text-3xl font-black italic tracking-wider uppercase hover:opacity-70 transition-opacity"
               >
-                Brand's Story
+                {t.nav.story}
               </Link>
             </div>
 
             <div className="mt-auto px-6 pb-10 flex items-center gap-10 text-[11px] font-bold tracking-[0.2em] uppercase">
-              <Link href="/saved" onClick={() => setMenuOpen(false)} className="hover:opacity-70 transition-opacity">Saved</Link>
-              <Link href="/cart" onClick={() => setMenuOpen(false)} className="hover:opacity-70 transition-opacity">Bag</Link>
-              <button onClick={toggleLanguage} className="hover:opacity-70 transition-opacity">{lang}</button>
+              <Link href="/saved" onClick={() => setMenuOpen(false)} className="hover:opacity-70 transition-opacity">{t.nav.saved}</Link>
+              <Link href="/cart" onClick={() => setMenuOpen(false)} className="hover:opacity-70 transition-opacity">{t.nav.bag}</Link>
+              <button onClick={toggleLocale} className="hover:opacity-70 transition-opacity">{locale.toUpperCase()}</button>
             </div>
           </motion.div>
         )}

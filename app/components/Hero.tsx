@@ -4,15 +4,17 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import LiquidButton from "./LiquidButton";
+import { useLang } from "@/context/LanguageContext";
 
 const SLIDES = [
-  { src: "/yzs-hero.jpg", alt: "yzs Spy Collection", title: "SPY", subtitle: "COLLECTION", titleClass: "text-[96px] md:text-[160px]" },
-  { src: "/yzs-hero-2.jpg", alt: "yzs Just Dance Collection", title: "JUST DANCE", subtitle: "COLLECTION", titleClass: "text-[32px] md:text-[54px] whitespace-nowrap" },
+  { src: "/yzs-hero.jpg", title: "SPY", titleClass: "text-[96px] md:text-[160px]" },
+  { src: "/yzs-hero-2.jpg", title: "JUST DANCE", titleClass: "text-[32px] md:text-[54px] whitespace-nowrap" },
 ];
 
 const ROTATE_MS = 7000;
 
 export default function Hero() {
+  const { t } = useLang();
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -45,7 +47,7 @@ export default function Hero() {
         >
           <Image
             src={slide.src}
-            alt={slide.alt}
+            alt={`yzs ${slide.title} — ${t.hero.collection}`}
             fill
             priority={i === 0}
             className="object-cover object-center opacity-80"
@@ -74,18 +76,18 @@ export default function Hero() {
                 {SLIDES[index].title}
               </span>
               <span className="text-[26px] md:text-[40px] font-light tracking-[0.2em] mt-2 md:mt-4 text-white">
-                {SLIDES[index].subtitle}
+                {t.hero.collection}
               </span>
             </motion.h1>
           </AnimatePresence>
 
           <motion.div variants={itemVars} className="flex flex-col gap-3">
             <LiquidButton variant="white">
-              Shop Now
+              {t.hero.shopNow}
             </LiquidButton>
 
             <LiquidButton variant="transparent">
-              Explore More
+              {t.hero.exploreMore}
             </LiquidButton>
           </motion.div>
         </motion.div>

@@ -2,8 +2,10 @@
 
 import { Product } from "../data/products";
 import ProductCard from "./ProductCard";
+import { useLang } from "@/context/LanguageContext";
 
 export default function NewArrivals({ products }: { products: Product[] }) {
+  const { t } = useLang();
   const currentProducts = products.slice(0, 4);
 
   return (
@@ -14,7 +16,7 @@ export default function NewArrivals({ products }: { products: Product[] }) {
       {/* ========================================= */}
       <div className="relative flex items-center justify-center px-6 md:px-10 mb-6 text-[10px] md:text-[11px] font-bold tracking-[0.15em] uppercase w-full">
         <div className="absolute left-6 md:left-10 text-left hidden md:block">
-          New In
+          {t.home.newIn}
         </div>
         <button className="bg-black text-white px-5 py-1.5 transition-colors">
           Main SS26
