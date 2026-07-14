@@ -20,7 +20,6 @@ export interface CategoryProductRow {
   id: string;
   brand_primary: string;
   name_en: string;
-  name_ru: string | null;
   price: number;
   currency: string;
   category: string;
@@ -39,11 +38,9 @@ const chip = (active: boolean) =>
 export default function CategoryProducts({
   products,
   title,
-  titleRu,
 }: {
   products: CategoryProductRow[];
   title: string;
-  titleRu?: string | null;
 }) {
   const { locale, t } = useLang();
   const [showFilters, setShowFilters] = useState(false);
@@ -115,7 +112,7 @@ export default function CategoryProducts({
     <>
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 border-b border-gray-200 pb-6 gap-6">
         <h1 className="text-4xl md:text-6xl font-black italic tracking-wider uppercase capitalize">
-          {pick(locale, title, titleRu)}
+          {title}
         </h1>
         <div className="flex items-center gap-8 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">
           <button onClick={() => setShowFilters((v) => !v)} className={`transition-colors ${showFilters || activeCount > 0 ? "text-black" : "hover:text-black"}`}>
@@ -186,7 +183,6 @@ export default function CategoryProducts({
               id: product.id,
               brand: product.brand_primary,
               name: product.name_en,
-              name_ru: product.name_ru ?? undefined,
               price: `${product.price} ${product.currency}`,
               imageSrc: firstVariant?.cover_image || "/images/placeholder.jpg",
               category: product.category,

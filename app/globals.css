@@ -6,8 +6,8 @@
 }
 
 @theme {
-  --font-sans: var(--font-rebelton), ui-sans-serif, system-ui, sans-serif;
-  --font-extended: var(--font-rebelton-extended), sans-serif;
+  --font-sans: var(--font-rebelton), var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-extended: var(--font-rebelton-extended), var(--font-montserrat), sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {

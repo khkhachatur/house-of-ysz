@@ -4,12 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useStore } from "@/context/StoreContext";
 import { useLang } from "@/context/LanguageContext";
-import { pick } from "../i18n/dictionary";
 import LiquidButton from "../components/LiquidButton";
 
 export default function CartPage() {
   const { cartItems, removeFromCart } = useStore();
-  const { locale, t } = useLang();
+  const { t } = useLang();
 
   const subtotal = cartItems.reduce((acc, item) => {
     const num = parseFloat(item.price.replace(",", ".").split(" ")[0]);
@@ -31,14 +30,14 @@ export default function CartPage() {
             {cartItems.map((item, index) => (
               <div key={`${item.id}-${index}`} className="flex gap-6 border-b border-gray-100 pb-10">
                 <div className="relative w-32 md:w-48 aspect-[3/4] bg-gray-100">
-                  <Image src={item.imageSrc} alt={pick(locale, item.name, item.name_ru)} fill className="object-cover" />
+                  <Image src={item.imageSrc} alt={item.name} fill className="object-cover" />
                 </div>
 
                 <div className="flex flex-col justify-between flex-grow py-2">
                   <div>
                     <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-1">{item.brand}</div>
                     <Link href={`/products/${item.id.split(":")[0]}`} className="text-lg md:text-xl font-black italic uppercase hover:opacity-60 transition-opacity">
-                      {pick(locale, item.name, item.name_ru)}
+                      {item.name}
                     </Link>
                     <div className="text-sm font-medium tracking-wide mt-2">{item.price}</div>
                   </div>

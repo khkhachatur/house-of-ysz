@@ -4,11 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLang } from "@/context/LanguageContext";
-import { pick } from "../i18n/dictionary";
 import type { Category } from "../types";
 
 export default function Footer({ categories }: { categories: Category[] }) {
-  const { locale, t } = useLang();
+  const { t } = useLang();
   const tickerText = Array(12).fill("yzs ");
 
   return (
@@ -73,7 +72,7 @@ export default function Footer({ categories }: { categories: Category[] }) {
               <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-1">{t.footer.shop}</h4>
               {categories.map((c) => (
                 <Link key={c.id} href={`/${c.slug}`} className="text-[11px] tracking-widest uppercase hover:text-white transition-colors">
-                  {pick(locale, c.title_en, c.title_ru)}
+                  {c.title_en}
                 </Link>
               ))}
             </div>

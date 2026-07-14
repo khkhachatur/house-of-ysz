@@ -1,4 +1,5 @@
 import localFont from 'next/font/local';
+import { Montserrat } from 'next/font/google';
 import { cookies } from "next/headers";
 import Navbar from "./components/Navbar";
 import { StoreProvider } from "../context/StoreContext";
@@ -36,6 +37,15 @@ const rebeltonExtended = localFont({
   display: 'swap',
 });
 
+// Cyrillic fallback: REBELTON has no Cyrillic glyphs, so Russian text
+// falls through to this instead of the system default.
+const montserrat = Montserrat({
+  subsets: ['latin', 'cyrillic'],
+  style: ['normal', 'italic'],
+  variable: '--font-montserrat',
+  display: 'swap',
+});
+
 export default async function RootLayout({
   children,
 }: {
@@ -51,7 +61,7 @@ export default async function RootLayout({
   const locale: Locale = isLocale(cookieLocale) ? cookieLocale : "en";
 
   return (
-    <html lang={locale} className={`${rebelton.variable} ${rebeltonExtended.variable}`}>
+    <html lang={locale} className={`${rebelton.variable} ${rebeltonExtended.variable} ${montserrat.variable}`}>
       <body className="antialiased bg-black min-h-screen font-sans text-white">
         <LanguageProvider initialLocale={locale}>
           <StoreProvider>

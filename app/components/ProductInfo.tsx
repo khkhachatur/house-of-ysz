@@ -4,13 +4,11 @@ import { useState } from "react";
 import LiquidButton from "./LiquidButton";
 import { useStore } from "@/context/StoreContext";
 import { useLang } from "@/context/LanguageContext";
-import { pick } from "../i18n/dictionary";
 
 export interface ProductInfoData {
   id: string;
   brand: string;
   name: string;
-  nameRu?: string | null;
   price: string;
   description: string | null;
   descriptionRu?: string | null;
@@ -25,7 +23,6 @@ export default function ProductInfo({ product }: { product: ProductInfoData }) {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [sizeError, setSizeError] = useState(false);
 
-  const name = pick(locale, product.name, product.nameRu);
   const description =
     (locale === "ru" && product.descriptionRu) ||
     product.description ||
@@ -40,7 +37,6 @@ export default function ProductInfo({ product }: { product: ProductInfoData }) {
       id: `${product.id}:${selectedSize}`,
       brand: product.brand,
       name: `${product.name} — ${selectedSize}`,
-      name_ru: product.nameRu ? `${product.nameRu} — ${selectedSize}` : undefined,
       price: product.price,
       imageSrc: product.imageSrc,
       category: product.category,
@@ -54,7 +50,7 @@ export default function ProductInfo({ product }: { product: ProductInfoData }) {
       </div>
 
       <h1 className="text-3xl md:text-4xl font-black italic tracking-wider mb-4 uppercase">
-        {name}
+        {product.name}
       </h1>
 
       <p className="text-sm font-medium tracking-wide mb-10">

@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Product } from "../data/products";
 import { useStore } from "@/context/StoreContext";
-import { useLang } from "@/context/LanguageContext";
-import { pick } from "../i18n/dictionary";
 
 interface ProductCardProps {
   product: Product;
@@ -14,15 +12,13 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, className = "" }: ProductCardProps) {
   const { savedItems, toggleSave, addToCart } = useStore();
-  const { locale } = useLang();
 
   const isSaved = savedItems.some((item) => item.id === product.id);
-  const name = pick(locale, product.name, product.name_ru);
 
   return (
     <Link href={`/products/${product.id}`} className={`group relative flex flex-col cursor-pointer ${className}`}>
       <div className="relative aspect-[3/4] w-full bg-gray-100 overflow-hidden">
-        <Image src={product.imageSrc} alt={name} fill className="object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+        <Image src={product.imageSrc} alt={product.name} fill className="object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" />
         
         <button 
           onClick={(e) => {
@@ -51,7 +47,7 @@ export default function ProductCard({ product, className = "" }: ProductCardProp
 
       <div className="p-5 flex flex-col gap-1.5">
         <span className="text-[10px] font-bold tracking-[0.2em] uppercase">{product.brand}</span>
-        <span className="text-[11px] font-medium text-gray-800 tracking-wide">{name}</span>
+        <span className="text-[11px] font-medium text-gray-800 tracking-wide">{product.name}</span>
         <span className="text-[11px] font-medium tracking-wide mt-1">{product.price}</span>
       </div>
     </Link>

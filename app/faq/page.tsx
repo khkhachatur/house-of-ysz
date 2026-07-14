@@ -8,7 +8,7 @@ export default function FaqPage() {
   return (
     <main className="min-h-screen bg-white text-black pt-32 px-6 md:px-10 pb-24">
       <div className="max-w-[800px] mx-auto">
-        <h1 className="text-3xl md:text-5xl font-black italic tracking-wider mb-12 uppercase border-b border-gray-200 pb-6">
+        <h1 className="text-3xl md:text-5xl font-black italic tracking-wider leading-tight mb-12 uppercase border-b border-gray-200 pb-6">
           {t.faq.title}
         </h1>
 
