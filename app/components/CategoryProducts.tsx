@@ -38,9 +38,11 @@ const chip = (active: boolean) =>
 export default function CategoryProducts({
   products,
   title,
+  titleRu,
 }: {
   products: CategoryProductRow[];
   title: string;
+  titleRu?: string | null;
 }) {
   const { locale, t } = useLang();
   const [showFilters, setShowFilters] = useState(false);
@@ -112,7 +114,7 @@ export default function CategoryProducts({
     <>
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 border-b border-gray-200 pb-6 gap-6">
         <h1 className="text-4xl md:text-6xl font-black italic tracking-wider uppercase capitalize">
-          {title}
+          {pick(locale, title, titleRu)}
         </h1>
         <div className="flex items-center gap-8 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">
           <button onClick={() => setShowFilters((v) => !v)} className={`transition-colors ${showFilters || activeCount > 0 ? "text-black" : "hover:text-black"}`}>

@@ -17,7 +17,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
       .eq("category", category),
     supabase
       .from("categories")
-      .select("title_en")
+      .select("title_en, title_ru")
       .eq("slug", category)
       .maybeSingle(),
   ]);
@@ -32,6 +32,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         <CategoryProducts
           products={(products ?? []) as CategoryProductRow[]}
           title={categoryRow?.title_en ?? category.replace("-", " ")}
+          titleRu={categoryRow?.title_ru}
         />
       </div>
     </main>

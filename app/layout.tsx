@@ -26,6 +26,10 @@ const rebelton = localFont({
   ],
   variable: '--font-rebelton',
   display: 'swap',
+  // Without this, next/font injects an Arial-based "rebelton Fallback" scaled
+  // ~157% to match REBELTON's metrics; it covers Cyrillic, so Russian text
+  // rendered huge instead of falling through to Montserrat.
+  adjustFontFallback: false,
 });
 
 const rebeltonExtended = localFont({
@@ -35,6 +39,7 @@ const rebeltonExtended = localFont({
   ],
   variable: '--font-rebelton-extended',
   display: 'swap',
+  adjustFontFallback: false,
 });
 
 // Cyrillic fallback: REBELTON has no Cyrillic glyphs, so Russian text

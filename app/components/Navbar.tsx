@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLang } from "@/context/LanguageContext";
+import { pick } from "../i18n/dictionary";
 import SearchOverlay from "./SearchOverlay";
 import type { Category } from "../types";
 
@@ -59,7 +60,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
       <div className="hidden md:flex items-center gap-8 text-[11px] tracking-widest uppercase">
         {categories.map((c) => (
           <Link key={c.id} href={`/${c.slug}`} className="hover:opacity-70 transition-opacity">
-            {c.title_en}
+            {pick(locale, c.title_en, c.title_ru)}
           </Link>
         ))}
       </div>
@@ -128,7 +129,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
                   onClick={() => setMenuOpen(false)}
                   className="text-3xl font-black italic tracking-wider uppercase hover:opacity-70 transition-opacity"
                 >
-                  {c.title_en}
+                  {pick(locale, c.title_en, c.title_ru)}
                 </Link>
               ))}
               <Link

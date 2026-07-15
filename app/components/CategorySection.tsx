@@ -3,10 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useLang } from "@/context/LanguageContext";
+import { pick } from "../i18n/dictionary";
 import type { Category } from "../types";
 
 export default function CategorySection({ categories }: { categories: Category[] }) {
-  const { t } = useLang();
+  const { locale, t } = useLang();
   return (
     <section id="collections" className="w-full bg-white pb-20 scroll-mt-16">
       <div className="px-6 md:px-10 py-16 flex justify-center text-center">
@@ -26,14 +27,14 @@ export default function CategorySection({ categories }: { categories: Category[]
           >
             <Image
               src={category.image_url}
-              alt={category.title_en}
+              alt={pick(locale, category.title_en, category.title_ru)}
               fill
               className="object-cover opacity-60 group-hover:opacity-40 group-hover:scale-110 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]"
             />
 
             <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10 text-white">
               <h3 className="text-2xl md:text-3xl font-black italic tracking-widest uppercase mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                {category.title_en}
+                {pick(locale, category.title_en, category.title_ru)}
               </h3>
               
               <div className="flex items-center gap-2 opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100 ease-out">
