@@ -91,6 +91,10 @@ const en = {
   toast: {
     added: "Added to bag",
   },
+  search: {
+    placeholder: "Search products…",
+    noResults: "Nothing found",
+  },
   faq: {
     title: "FAQ",
     items: [
@@ -202,6 +206,10 @@ const ru: typeof en = {
   },
   toast: {
     added: "Добавлено в корзину",
+  },
+  search: {
+    placeholder: "Поиск товаров…",
+    noResults: "Ничего не найдено",
   },
   faq: {
     title: "Вопросы и ответы",

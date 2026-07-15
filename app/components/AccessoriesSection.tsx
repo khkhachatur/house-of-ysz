@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import LiquidButton from "./LiquidButton";
 import { useLang } from "@/context/LanguageContext";
 
 export default function AccessoriesSection() {
   const { t } = useLang();
+  const router = useRouter();
   const imageHover = {
     scale: 1.05,
     y: -10,
@@ -32,7 +34,7 @@ export default function AccessoriesSection() {
           {t.home.accessories}
         </h2>
 
-       <LiquidButton variant="black" className="px-10 py-3">
+       <LiquidButton variant="black" className="px-10 py-3" onClick={() => router.push("/accessories")}>
           {t.hero.shopNow}
         </LiquidButton>
       </div>

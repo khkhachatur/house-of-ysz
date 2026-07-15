@@ -17,6 +17,10 @@ export default function Hero() {
   const { t } = useLang();
   const [index, setIndex] = useState(0);
 
+  const scrollToCollections = () => {
+    document.getElementById("collections")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   useEffect(() => {
     const timer = setInterval(() => setIndex((i) => (i + 1) % SLIDES.length), ROTATE_MS);
     return () => clearInterval(timer);
@@ -82,11 +86,11 @@ export default function Hero() {
           </AnimatePresence>
 
           <motion.div variants={itemVars} className="flex flex-col gap-3">
-            <LiquidButton variant="white">
+            <LiquidButton variant="white" onClick={scrollToCollections}>
               {t.hero.shopNow}
             </LiquidButton>
 
-            <LiquidButton variant="transparent">
+            <LiquidButton variant="transparent" onClick={scrollToCollections}>
               {t.hero.exploreMore}
             </LiquidButton>
           </motion.div>

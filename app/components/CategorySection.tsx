@@ -8,7 +8,7 @@ import type { Category } from "../types";
 export default function CategorySection({ categories }: { categories: Category[] }) {
   const { t } = useLang();
   return (
-    <section className="w-full bg-white pb-20">
+    <section id="collections" className="w-full bg-white pb-20 scroll-mt-16">
       <div className="px-6 md:px-10 py-16 flex justify-center text-center">
         <h2 className="text-[32px] text-black md:text-[50px] font-light tracking-[0.2em] uppercase">
           {t.home.collections}

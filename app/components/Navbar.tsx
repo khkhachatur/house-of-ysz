@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLang } from "@/context/LanguageContext";
+import SearchOverlay from "./SearchOverlay";
 import type { Category } from "../types";
 
 export default function Navbar({ categories }: { categories: Category[] }) {
@@ -13,6 +14,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
   const { locale, t, toggleLocale } = useLang();
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const forceBackground = pathname !== "/";
 
@@ -76,7 +78,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
         </button>
 
         <div className="flex items-center gap-5 md:ml-4">
-          <button className="hidden md:block hover:opacity-70 transition-opacity">
+          <button onClick={() => setSearchOpen(true)} aria-label={t.nav.search} className="hover:opacity-70 transition-opacity">
             <Image src="/icons/search.svg" alt={t.nav.search} width={18} height={18} />
           </button>
 
@@ -95,6 +97,8 @@ export default function Navbar({ categories }: { categories: Category[] }) {
       </div>
 
     </nav>
+
+    <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
 
     <AnimatePresence>
         {menuOpen && (
