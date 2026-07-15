@@ -1,15 +1,36 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLang } from "@/context/LanguageContext";
 import { pick } from "../i18n/dictionary";
+import { supabase } from "../utils/supabase";
 import type { Category } from "../types";
 
 export default function Footer({ categories }: { categories: Category[] }) {
   const { locale, t } = useLang();
   const tickerText = Array(12).fill("yzs ");
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "ok" | "invalid" | "error">("idle");
+
+  const subscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const value = email.trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value)) {
+      setStatus("invalid");
+      return;
+    }
+    const { error } = await supabase.from("newsletter_subscribers").insert({ email: value });
+    // 23505 = already subscribed; treat as success
+    if (error && error.code !== "23505") {
+      setStatus("error");
+      return;
+    }
+    setStatus("ok");
+    setEmail("");
+  };
 
   return (
     <footer className="relative w-full bg-black text-white mt-auto flex flex-col overflow-hidden">
@@ -55,16 +76,23 @@ export default function Footer({ categories }: { categories: Category[] }) {
               {t.footer.newsletter}
             </p>
 
-            <div className="flex w-full max-w-sm border-b border-white/30 focus-within:border-white transition-colors pb-2">
+            <form onSubmit={subscribe} className="flex w-full max-w-sm border-b border-white/30 focus-within:border-white transition-colors pb-2">
               <input
                 type="email"
+                value={email}
+                onChange={(e) => { setEmail(e.target.value); setStatus("idle"); }}
                 placeholder={t.footer.emailPlaceholder}
                 className="bg-transparent w-full py-2 text-xs tracking-widest outline-none placeholder-gray-600"
               />
-              <button className="text-[10px] font-bold tracking-[0.2em] uppercase hover:text-gray-400 transition-colors">
+              <button type="submit" className="text-[10px] font-bold tracking-[0.2em] uppercase hover:text-gray-400 transition-colors">
                 {t.footer.submit}
               </button>
-            </div>
+            </form>
+            {status !== "idle" && (
+              <p className={`mt-3 text-[10px] tracking-widest uppercase ${status === "ok" ? "text-gray-300" : "text-red-400"}`}>
+                {status === "ok" ? t.newsletter.success : status === "invalid" ? t.newsletter.invalid : t.newsletter.error}
+              </p>
+            )}
           </div>
 
           <div className="w-full md:w-2/3 grid grid-cols-2 md:grid-cols-3 gap-12 md:gap-8">

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { Montserrat } from 'next/font/google';
 import { cookies } from "next/headers";
@@ -11,6 +12,21 @@ import { isLocale, LOCALE_COOKIE, type Locale } from "./i18n/dictionary";
 import type { Category } from "./types";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://www.yzs.am"),
+  title: {
+    default: "YZS — Independent Streetwear from Armenia",
+    template: "%s — YZS",
+  },
+  description:
+    "YZS is an independent streetwear brand from Yerevan, Armenia. Graphic t-shirts, hoodies, longsleeves, and accessories in limited runs.",
+  openGraph: {
+    siteName: "YZS",
+    type: "website",
+    images: ["/yzs-hero.jpg"],
+  },
+};
 
 const rebelton = localFont({
   src: [

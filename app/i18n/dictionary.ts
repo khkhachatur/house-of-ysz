@@ -95,6 +95,103 @@ const en = {
     placeholder: "Search products…",
     noResults: "Nothing found",
   },
+  newsletter: {
+    success: "You're in. Welcome to the collective.",
+    invalid: "Please enter a valid email address.",
+    error: "Something went wrong — please try again.",
+  },
+  notFound: {
+    text: "This page doesn't exist.",
+    home: "Back to home",
+  },
+  story: {
+    title: "Brand's Story",
+    text: "The story is being written. The full YZS story is coming soon — follow us on Instagram for updates.",
+  },
+  shipping: {
+    title: "Shipping & Returns",
+    sections: [
+      {
+        h: "Delivery in Armenia",
+        p: "Orders within Yerevan are usually delivered in 1–3 business days. Delivery across the rest of Armenia takes 2–5 business days.",
+      },
+      {
+        h: "International delivery",
+        p: "We ship worldwide. International orders typically arrive within 7–14 business days. Shipping costs depend on your location and are confirmed with your order.",
+      },
+      {
+        h: "Returns",
+        p: "Returns are accepted within 14 days of delivery, as long as the item is unworn, unwashed, and has its original tags. Email us at houseofyzs@gmail.com to start a return.",
+      },
+      {
+        h: "Exchanges",
+        p: "Exchanges are possible within the same 14-day window, subject to stock availability. Contact us and we'll sort it out.",
+      },
+    ],
+  },
+  sizeGuide: {
+    title: "Size Guide",
+    sections: [
+      {
+        h: "Fit",
+        p: "Most YZS pieces have a relaxed, oversized fit. If you prefer a regular fit and you're between sizes, we recommend sizing down.",
+      },
+      {
+        h: "How to choose",
+        p: "Compare with a similar garment you own: lay it flat and measure across the chest and down the length. Available sizes for each item are shown on its product page.",
+      },
+      {
+        h: "Exact measurements",
+        p: "Detailed per-garment measurement tables are coming soon. Until then, message us on Instagram or email houseofyzs@gmail.com — we're happy to help you pick a size.",
+      },
+    ],
+  },
+  privacy: {
+    title: "Privacy Policy",
+    sections: [
+      {
+        h: "What we collect",
+        p: "Your email address if you subscribe to our newsletter, and the contact details you share with us when placing an order.",
+      },
+      {
+        h: "Cookies",
+        p: "We use a single cookie to remember your language preference. We do not use tracking or advertising cookies.",
+      },
+      {
+        h: "How we use your data",
+        p: "Only to fulfil your orders and send you updates you asked for. We never sell or share your personal data with third parties.",
+      },
+      {
+        h: "Your rights",
+        p: "You can ask us to delete your data at any time — just email houseofyzs@gmail.com.",
+      },
+    ],
+  },
+  terms: {
+    title: "Terms of Service",
+    sections: [
+      {
+        h: "About the store",
+        p: "yzs.am is operated by YZS, an independent clothing brand based in Armenia.",
+      },
+      {
+        h: "Prices and orders",
+        p: "All prices are listed in USD and may change without notice. Orders are confirmed by our team; if an item turns out to be unavailable, we will cancel and refund it.",
+      },
+      {
+        h: "Returns",
+        p: "Returns and exchanges are governed by our Shipping & Returns policy: 14 days from delivery for unworn items with original tags.",
+      },
+      {
+        h: "Content",
+        p: "All designs, photos, and text on this site are the property of YZS and may not be used commercially without permission.",
+      },
+      {
+        h: "Contact",
+        p: "Questions about these terms: houseofyzs@gmail.com.",
+      },
+    ],
+  },
   faq: {
     title: "FAQ",
     items: [
@@ -210,6 +307,103 @@ const ru: typeof en = {
   search: {
     placeholder: "Поиск товаров…",
     noResults: "Ничего не найдено",
+  },
+  newsletter: {
+    success: "Готово. Добро пожаловать в комьюнити.",
+    invalid: "Пожалуйста, введите корректный email.",
+    error: "Что-то пошло не так — попробуйте ещё раз.",
+  },
+  notFound: {
+    text: "Такой страницы не существует.",
+    home: "На главную",
+  },
+  story: {
+    title: "История бренда",
+    text: "История пишется прямо сейчас. Полная история YZS появится здесь совсем скоро — следите за новостями в Instagram.",
+  },
+  shipping: {
+    title: "Доставка и возврат",
+    sections: [
+      {
+        h: "Доставка по Армении",
+        p: "Заказы по Еревану обычно доставляются за 1–3 рабочих дня. Доставка по остальной Армении занимает 2–5 рабочих дней.",
+      },
+      {
+        h: "Международная доставка",
+        p: "Мы доставляем по всему миру. Международные заказы обычно приходят за 7–14 рабочих дней. Стоимость доставки зависит от адреса и подтверждается вместе с заказом.",
+      },
+      {
+        h: "Возврат",
+        p: "Возврат возможен в течение 14 дней с момента получения, если вещь не носилась, не стиралась и сохранены оригинальные бирки. Напишите на houseofyzs@gmail.com, чтобы оформить возврат.",
+      },
+      {
+        h: "Обмен",
+        p: "Обмен возможен в те же 14 дней при наличии нужного размера. Свяжитесь с нами — всё решим.",
+      },
+    ],
+  },
+  sizeGuide: {
+    title: "Таблица размеров",
+    sections: [
+      {
+        h: "Посадка",
+        p: "Большинство вещей YZS имеют свободный оверсайз-крой. Если вы предпочитаете обычную посадку и находитесь между размерами, советуем взять на размер меньше.",
+      },
+      {
+        h: "Как выбрать",
+        p: "Сравните с похожей вещью из вашего гардероба: разложите её и измерьте ширину по груди и длину. Доступные размеры каждой вещи указаны на её странице.",
+      },
+      {
+        h: "Точные замеры",
+        p: "Подробные таблицы замеров по каждой вещи скоро появятся. А пока напишите нам в Instagram или на houseofyzs@gmail.com — с радостью поможем с размером.",
+      },
+    ],
+  },
+  privacy: {
+    title: "Политика конфиденциальности",
+    sections: [
+      {
+        h: "Что мы собираем",
+        p: "Ваш email, если вы подписались на рассылку, и контактные данные, которые вы указываете при оформлении заказа.",
+      },
+      {
+        h: "Cookies",
+        p: "Мы используем один cookie — для запоминания выбранного языка. Мы не используем трекинговые и рекламные cookies.",
+      },
+      {
+        h: "Как мы используем данные",
+        p: "Только для выполнения заказов и отправки обновлений, на которые вы подписались. Мы никогда не продаём и не передаём ваши данные третьим лицам.",
+      },
+      {
+        h: "Ваши права",
+        p: "Вы можете попросить удалить ваши данные в любой момент — напишите на houseofyzs@gmail.com.",
+      },
+    ],
+  },
+  terms: {
+    title: "Условия использования",
+    sections: [
+      {
+        h: "О магазине",
+        p: "yzs.am — сайт независимого бренда одежды YZS из Армении.",
+      },
+      {
+        h: "Цены и заказы",
+        p: "Все цены указаны в долларах США и могут меняться без предупреждения. Заказы подтверждаются нашей командой; если вещи не окажется в наличии, мы отменим заказ и вернём деньги.",
+      },
+      {
+        h: "Возврат",
+        p: "Возврат и обмен регулируются нашей политикой доставки и возврата: 14 дней с момента получения для неношеных вещей с бирками.",
+      },
+      {
+        h: "Контент",
+        p: "Все дизайны, фотографии и тексты на сайте принадлежат YZS и не могут использоваться в коммерческих целях без разрешения.",
+      },
+      {
+        h: "Контакты",
+        p: "Вопросы по условиям: houseofyzs@gmail.com.",
+      },
+    ],
   },
   faq: {
     title: "Вопросы и ответы",

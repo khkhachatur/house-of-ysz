@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react";
 import { Product } from "../app/data/products";
 import CartToast from "../app/components/CartToast";
 
@@ -18,6 +18,27 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [savedItems, setSavedItems] = useState<Product[]>([]);
   const [toast, setToast] = useState<{ product: Product; key: number } | null>(null);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    try {
+      const cart = localStorage.getItem("yzs-cart");
+      if (cart) setCartItems(JSON.parse(cart));
+      const saved = localStorage.getItem("yzs-saved");
+      if (saved) setSavedItems(JSON.parse(saved));
+    } catch {
+      // corrupted storage — start fresh
+    }
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (hydrated) localStorage.setItem("yzs-cart", JSON.stringify(cartItems));
+  }, [cartItems, hydrated]);
+
+  useEffect(() => {
+    if (hydrated) localStorage.setItem("yzs-saved", JSON.stringify(savedItems));
+  }, [savedItems, hydrated]);
 
   const closeToast = useCallback(() => setToast(null), []);
 

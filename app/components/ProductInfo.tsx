@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import LiquidButton from "./LiquidButton";
 import { useStore } from "@/context/StoreContext";
 import { useLang } from "@/context/LanguageContext";
@@ -61,7 +62,7 @@ export default function ProductInfo({ product }: { product: ProductInfoData }) {
       <div className="mb-10">
         <div className="flex justify-between text-[10px] font-bold tracking-[0.15em] uppercase mb-4">
           <span>{t.product.selectSize}</span>
-          <button className="underline opacity-50 hover:opacity-100">{t.product.sizeGuide}</button>
+          <Link href="/size-guide" className="underline opacity-50 hover:opacity-100">{t.product.sizeGuide}</Link>
         </div>
         <div className="grid grid-cols-4 gap-2">
           {product.sizes.map(({ label, inStock }) => (

@@ -30,6 +30,22 @@ interface ProductRow {
   product_variants: VariantRow[];
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const { data } = await supabase
+    .from("products")
+    .select("name_en, description_en, product_variants(cover_image)")
+    .eq("id", id)
+    .maybeSingle();
+  if (!data) return {};
+  const cover = (data.product_variants as { cover_image: string }[])?.[0]?.cover_image;
+  return {
+    title: data.name_en as string,
+    description: (data.description_en as string | null) ?? undefined,
+    openGraph: cover ? { images: [cover] } : undefined,
+  };
+}
+
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const [{ id }, cookieStore] = await Promise.all([params, cookies()]);
   const cookieLocale = cookieStore.get(LOCALE_COOKIE)?.value;

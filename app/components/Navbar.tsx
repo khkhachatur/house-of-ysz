@@ -87,10 +87,6 @@ export default function Navbar({ categories }: { categories: Category[] }) {
             <Image src="/icons/bookmark.svg" alt={t.nav.saved} width={18} height={18} />
           </Link>
 
-          <button className="hidden md:block hover:opacity-70 transition-opacity">
-            <Image src="/icons/user.svg" alt={t.nav.account} width={18} height={18} />
-          </button>
-
           <Link href="/cart" className="hover:opacity-70 transition-opacity">
             <Image src="/icons/bag.svg" alt={t.nav.cart} width={18} height={18} />
           </Link>
