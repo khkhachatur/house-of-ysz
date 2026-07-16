@@ -106,7 +106,47 @@ const en = {
   },
   story: {
     title: "Brand's Story",
-    text: "The story is being written. The full YZS story is coming soon — follow us on Instagram for updates.",
+    eyebrow: "Est. 2024 — Yerevan, Armenia",
+    scroll: "Scroll",
+    chapters: [
+      {
+        n: "01",
+        h: "The House",
+        p: [
+          "YZS is a fashion house founded in Armenia in 2024 by Karapetyan F. and Jagatspanyan E.",
+          "It opened easily enough — carried by the founders' enthusiasm and their appetite to try.",
+        ],
+      },
+      {
+        n: "02",
+        h: "Inspiration",
+        p: [
+          "Many things fed the work, but the strongest pull was the will to make something of our own — that, and the standards both founders hold themselves to. Kanye West above all.",
+        ],
+      },
+      {
+        n: "03",
+        h: "The Future",
+        p: [
+          "The house of YZS is loyal to its vision of the future, whatever the present weighs.",
+          "The founders set themselves one task: to raise something new — not only in the local market, but in the world.",
+        ],
+      },
+    ],
+    quoteLabel: "The idea",
+    quote: "Make clothes true to the gut, and strike everyone with the work — ourselves included.",
+    foundersLabel: "Founders",
+    founders: ["Karapetyan F.", "Jagatspanyan E."],
+    ctaLabel: "Follow the house",
+    instagram: "Instagram",
+    shop: "Shop the collections",
+    alts: {
+      hero: "A figure in a white YZS hoodie standing beneath a carved stone sun",
+      plaza: "A figure in a white YZS hoodie in a concrete plaza at night",
+      scrawl: "Two figures against concrete, YZS drawn beside them in blue marker",
+      collage: "A solarised photo of the founders, marked up in blue",
+      mark: "YZS drawn by hand in blue marker",
+    },
   },
   shipping: {
     title: "Shipping & Returns",
@@ -319,7 +359,47 @@ const ru: typeof en = {
   },
   story: {
     title: "История бренда",
-    text: "История пишется прямо сейчас. Полная история YZS появится здесь совсем скоро — следите за новостями в Instagram.",
+    eyebrow: "Основан в 2024 — Ереван, Армения",
+    scroll: "Листайте",
+    chapters: [
+      {
+        n: "01",
+        h: "Дом",
+        p: [
+          "«YZS» — дом моды, основанный в Армении в 2024 году. Основатели — Карапетян Ф. и Джагацпанян Э.",
+          "Дом открылся довольно легко — благодаря энтузиазму владельцев и желанию пробовать.",
+        ],
+      },
+      {
+        n: "02",
+        h: "Вдохновение",
+        p: [
+          "На вдохновение влияло много факторов, но наибольшее влияние оказало желание создавать что-то своё, а также эталоны обоих создателей — в частности, Канье Уэст.",
+        ],
+      },
+      {
+        n: "03",
+        h: "Будущее",
+        p: [
+          "Дом «YZS» предан своему видению будущего, несмотря на тяжести в настоящем.",
+          "Главная задача владельцев — воспитать что-то новое не только на местном рынке, но и в мире.",
+        ],
+      },
+    ],
+    quoteLabel: "Идея",
+    quote: "Сотворить одежду по нутру и стараться поражать всех в своих работах, включая нас самих.",
+    foundersLabel: "Основатели",
+    founders: ["Карапетян Ф.", "Джагацпанян Э."],
+    ctaLabel: "Следите за домом",
+    instagram: "Instagram",
+    shop: "Смотреть коллекции",
+    alts: {
+      hero: "Фигура в белом худи YZS под каменным резным солнцем",
+      plaza: "Фигура в белом худи YZS на бетонной площади ночью",
+      scrawl: "Две фигуры у бетонной стены, рядом надпись YZS синим маркером",
+      collage: "Соляризованное фото основателей с рисунками синим маркером",
+      mark: "YZS, нарисованное от руки синим маркером",
+    },
   },
   shipping: {
     title: "Доставка и возврат",
