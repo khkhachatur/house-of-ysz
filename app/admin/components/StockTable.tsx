@@ -21,13 +21,25 @@ interface ProductRow {
   category: string;
   price: number;
   currency: string;
+  description_en: string | null;
+  description_ru: string | null;
+  fabric_details_en: string[] | null;
+  fabric_details_ru: string[] | null;
   product_variants: VariantRow[];
 }
+
+const toLines = (s: string) => [...new Set(s.split("\n").map((x) => x.trim()).filter(Boolean))];
+const sameLines = (a: string[], b: string[]) =>
+  a.length === b.length && a.every((v, i) => v === b[i]);
 
 export default function StockTable() {
   const [products, setProducts] = useState<ProductRow[]>([]);
   const [prices, setPrices] = useState<Record<string, string>>({});
   const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const [descEn, setDescEn] = useState<Record<string, string>>({});
+  const [descRu, setDescRu] = useState<Record<string, string>>({});
+  const [fabricEn, setFabricEn] = useState<Record<string, string>>({});
+  const [fabricRu, setFabricRu] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
 
@@ -35,7 +47,7 @@ export default function StockTable() {
     setLoading(true);
     const { data, error } = await supabase
       .from("products")
-      .select("id, slug, name_en, category, price, currency, product_variants(id, color_name_en, variant_sizes(id, size_label, stock_quantity, sku))")
+      .select("id, slug, name_en, category, price, currency, description_en, description_ru, fabric_details_en, fabric_details_ru, product_variants(id, color_name_en, variant_sizes(id, size_label, stock_quantity, sku))")
       .order("category")
       .order("name_en");
     if (!error && data) {
@@ -43,14 +55,26 @@ export default function StockTable() {
       setProducts(rows);
       const p: Record<string, string> = {};
       const q: Record<string, number> = {};
+      const de: Record<string, string> = {};
+      const dr: Record<string, string> = {};
+      const fe: Record<string, string> = {};
+      const fr: Record<string, string> = {};
       for (const prod of rows) {
         p[prod.id] = String(prod.price);
+        de[prod.id] = prod.description_en ?? "";
+        dr[prod.id] = prod.description_ru ?? "";
+        fe[prod.id] = (prod.fabric_details_en ?? []).join("\n");
+        fr[prod.id] = (prod.fabric_details_ru ?? []).join("\n");
         for (const v of prod.product_variants) {
           for (const s of v.variant_sizes) q[s.id] = s.stock_quantity;
         }
       }
       setPrices(p);
       setQuantities(q);
+      setDescEn(de);
+      setDescRu(dr);
+      setFabricEn(fe);
+      setFabricRu(fr);
     }
     setLoading(false);
   }, []);
@@ -62,17 +86,48 @@ export default function StockTable() {
   const save = async (prod: ProductRow) => {
     setStatus((s) => ({ ...s, [prod.id]: "saving" }));
     try {
-      const newPrice = Number(prices[prod.id]);
-      if (Number.isFinite(newPrice) && newPrice !== prod.price) {
-        const { error } = await supabase.from("products").update({ price: newPrice }).eq("id", prod.id);
-        if (error) throw error;
+      const updates: Record<string, unknown> = {};
+      // Number("") is 0, not NaN, so a cleared price field would otherwise write a
+      // real 0 and put a free product on the storefront. Require a positive value.
+      const rawPrice = (prices[prod.id] ?? "").trim();
+      const newPrice = Number(rawPrice);
+      if (rawPrice && Number.isFinite(newPrice) && newPrice > 0 && newPrice !== prod.price) {
+        updates.price = newPrice;
       }
+
+      const de = (descEn[prod.id] ?? "").trim();
+      if (de !== (prod.description_en ?? "")) updates.description_en = de || null;
+      const dr = (descRu[prod.id] ?? "").trim();
+      if (dr !== (prod.description_ru ?? "")) updates.description_ru = dr || null;
+
+      const fe = toLines(fabricEn[prod.id] ?? "");
+      if (!sameLines(fe, prod.fabric_details_en ?? [])) updates.fabric_details_en = fe;
+      const fr = toLines(fabricRu[prod.id] ?? "");
+      if (!sameLines(fr, prod.fabric_details_ru ?? [])) updates.fabric_details_ru = fr;
+
+      if (Object.keys(updates).length) {
+        // .select() returns the changed rows; an RLS-blocked write (e.g. an expired
+        // session) returns zero rows with error: null, so treat an empty result as a
+        // failure instead of painting a false "Saved".
+        const { data, error } = await supabase.from("products").update(updates).eq("id", prod.id).select("id");
+        if (error) throw error;
+        if (!data || data.length === 0) throw new Error("not saved — sign in again");
+      }
+
       for (const v of prod.product_variants) {
         for (const s of v.variant_sizes) {
           const q = quantities[s.id];
           if (q !== s.stock_quantity) {
-            const { error } = await supabase.from("variant_sizes").update({ stock_quantity: q }).eq("id", s.id);
+            // Same RLS no-op guard as the products write above: an expired session
+            // makes this update match zero rows with error:null, and stock is the
+            // table's primary mutation, so a false "Saved" here is the worst case.
+            const { data, error } = await supabase
+              .from("variant_sizes")
+              .update({ stock_quantity: q })
+              .eq("id", s.id)
+              .select("id");
             if (error) throw error;
+            if (!data || data.length === 0) throw new Error("not saved — sign in again");
           }
         }
       }
@@ -171,6 +226,36 @@ export default function StockTable() {
                 ))}
             </div>
           ))}
+          <div className="grid md:grid-cols-2 gap-4 mt-5">
+            <textarea
+              rows={3}
+              placeholder="Description (EN)"
+              value={descEn[prod.id] ?? ""}
+              onChange={(e) => setDescEn((d) => ({ ...d, [prod.id]: e.target.value }))}
+              className="border border-gray-300 p-2 text-sm outline-none focus:border-black resize-y"
+            />
+            <textarea
+              rows={3}
+              placeholder="Описание (RU)"
+              value={descRu[prod.id] ?? ""}
+              onChange={(e) => setDescRu((d) => ({ ...d, [prod.id]: e.target.value }))}
+              className="border border-gray-300 p-2 text-sm outline-none focus:border-black resize-y"
+            />
+            <textarea
+              rows={3}
+              placeholder="Fabric & care (EN) — one per line"
+              value={fabricEn[prod.id] ?? ""}
+              onChange={(e) => setFabricEn((d) => ({ ...d, [prod.id]: e.target.value }))}
+              className="border border-gray-300 p-2 text-sm outline-none focus:border-black resize-y"
+            />
+            <textarea
+              rows={3}
+              placeholder="Состав и уход (RU) — по одному в строке"
+              value={fabricRu[prod.id] ?? ""}
+              onChange={(e) => setFabricRu((d) => ({ ...d, [prod.id]: e.target.value }))}
+              className="border border-gray-300 p-2 text-sm outline-none focus:border-black resize-y"
+            />
+          </div>
           <div className="flex items-center gap-4 mt-4">
             <button
               onClick={() => save(prod)}

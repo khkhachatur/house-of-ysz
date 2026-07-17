@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { Montserrat } from 'next/font/google';
 import { cookies } from "next/headers";
+import { Analytics } from "@vercel/analytics/next";
 import Navbar from "./components/Navbar";
 import { StoreProvider } from "../context/StoreContext";
 import { LanguageProvider } from "../context/LanguageContext";
@@ -89,6 +90,7 @@ export default async function RootLayout({
             <Navbar categories={categories} />
             <main>{children}</main>
             <Footer categories={categories} />
+            <Analytics />
           </StoreProvider>
         </LanguageProvider>
       </body>

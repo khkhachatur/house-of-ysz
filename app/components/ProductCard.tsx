@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Product } from "../data/products";
 import { useStore } from "@/context/StoreContext";
+import { useLang } from "@/context/LanguageContext";
 
 interface ProductCardProps {
   product: Product;
@@ -11,7 +13,9 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, className = "" }: ProductCardProps) {
-  const { savedItems, toggleSave, addToCart } = useStore();
+  const { savedItems, toggleSave } = useStore();
+  const { t } = useLang();
+  const router = useRouter();
 
   const isSaved = savedItems.some((item) => item.id === product.id);
 
@@ -20,10 +24,13 @@ export default function ProductCard({ product, className = "" }: ProductCardProp
       <div className="relative aspect-[3/4] w-full bg-gray-100 overflow-hidden">
         <Image src={product.imageSrc} alt={product.name} fill className="object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" />
         
-        <button 
+        <button
+          type="button"
+          aria-label={t.nav.saved}
+          aria-pressed={isSaved}
           onClick={(e) => {
-            e.preventDefault(); 
-            toggleSave(product); 
+            e.preventDefault();
+            toggleSave(product);
           }}
           className="absolute top-4 right-4 z-10 text-black hover:opacity-60 transition-opacity"
         >
@@ -32,10 +39,14 @@ export default function ProductCard({ product, className = "" }: ProductCardProp
           </svg>
         </button>
 
-        <button 
+        {/* Sends the shopper to the product page to pick a size rather than adding a
+            sizeless line to the bag — an order with no size can't be fulfilled. */}
+        <button
+          type="button"
+          aria-label={t.product.selectSize}
           onClick={(e) => {
-            e.preventDefault(); 
-            addToCart(product);
+            e.preventDefault();
+            router.push(`/products/${product.id}`);
           }}
           className="absolute bottom-4 left-4 z-10 border border-black w-8 h-8 flex items-center justify-center backdrop-blur-sm bg-white/20 hover:bg-black hover:text-white transition-colors duration-300"
         >

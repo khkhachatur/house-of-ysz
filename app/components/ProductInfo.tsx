@@ -13,6 +13,7 @@ export interface ProductInfoData {
   price: string;
   description: string | null;
   descriptionRu?: string | null;
+  fabric?: string[] | null;
   imageSrc: string;
   category: string;
   sizes: { label: string; inStock: boolean }[];
@@ -102,6 +103,20 @@ export default function ProductInfo({ product }: { product: ProductInfoData }) {
             {description}
           </p>
         </details>
+
+        {product.fabric && product.fabric.length > 0 && (
+          <details className="group cursor-pointer bg-gray-50 px-5 py-4">
+            <summary className="list-none flex justify-between items-center text-[10px] font-bold uppercase tracking-widest">
+              {t.product.fabric}
+              <span className="group-open:rotate-180 transition-transform">↓</span>
+            </summary>
+            <ul className="pt-4 text-xs leading-relaxed text-gray-600 list-disc pl-4 space-y-1">
+              {product.fabric.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
+            </ul>
+          </details>
+        )}
 
         <details className="group cursor-pointer bg-gray-50 px-5 py-4">
           <summary className="list-none flex justify-between items-center text-[10px] font-bold uppercase tracking-widest">

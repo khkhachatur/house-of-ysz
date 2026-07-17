@@ -27,6 +27,8 @@ interface ProductRow {
   currency: string;
   description_en: string | null;
   description_ru: string | null;
+  fabric_details_en: string[] | null;
+  fabric_details_ru: string[] | null;
   product_variants: VariantRow[];
 }
 
@@ -54,7 +56,8 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const { data } = await supabase
     .from("products")
     .select(`
-      id, brand_primary, name_en, category, price, currency, description_en, description_ru,
+      id, brand_primary, name_en, category, price, currency,
+      description_en, description_ru, fabric_details_en, fabric_details_ru,
       product_variants (
         cover_image,
         variant_images ( image_url, display_order ),
@@ -116,6 +119,10 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
             price: `${product.price} ${product.currency}`,
             description: product.description_en,
             descriptionRu: product.description_ru,
+            fabric:
+              locale === "ru" && product.fabric_details_ru?.length
+                ? product.fabric_details_ru
+                : product.fabric_details_en,
             imageSrc: images[0],
             category: product.category,
             sizes,

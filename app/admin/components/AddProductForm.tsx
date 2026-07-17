@@ -17,6 +17,10 @@ export default function AddProductForm() {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [currency, setCurrency] = useState("USD");
+  const [descEn, setDescEn] = useState("");
+  const [descRu, setDescRu] = useState("");
+  const [fabricEn, setFabricEn] = useState("");
+  const [fabricRu, setFabricRu] = useState("");
   const [colorEn, setColorEn] = useState("Black");
   const [colorRu, setColorRu] = useState("Чёрный");
   const [colorHex, setColorHex] = useState("#000000");
@@ -50,9 +54,23 @@ export default function AddProductForm() {
       const fallbackCover = categories.find((c) => c.slug === category)?.image_url ?? "";
       const cover = urls[0] ?? fallbackCover;
 
+      // Fabric details are stored one bullet per row (text[]); the owner types one per line.
+      const toLines = (s: string) => [...new Set(s.split("\n").map((x) => x.trim()).filter(Boolean))];
+
       const { data: prod, error: prodErr } = await supabase
         .from("products")
-        .insert({ slug, name_en: nameEn, name_ru: nameRu || nameEn, category, price: priceNum, currency })
+        .insert({
+          slug,
+          name_en: nameEn,
+          name_ru: nameRu || nameEn,
+          category,
+          price: priceNum,
+          currency,
+          description_en: descEn.trim() || null,
+          description_ru: descRu.trim() || null,
+          fabric_details_en: toLines(fabricEn),
+          fabric_details_ru: toLines(fabricRu),
+        })
         .select("id")
         .single();
       if (prodErr) throw prodErr;
@@ -88,6 +106,10 @@ export default function AddProductForm() {
       setNameEn("");
       setNameRu("");
       setPrice("");
+      setDescEn("");
+      setDescRu("");
+      setFabricEn("");
+      setFabricRu("");
       setFiles([]);
       setSizes([{ label: "M", qty: 0 }, { label: "L", qty: 0 }, { label: "XL", qty: 0 }]);
     } catch (err) {
@@ -97,6 +119,7 @@ export default function AddProductForm() {
   };
 
   const input = "border-b border-black/30 focus:border-black transition-colors py-2 text-sm outline-none w-full";
+  const textarea = "border border-black/30 focus:border-black transition-colors p-3 text-sm outline-none w-full resize-y";
 
   return (
     <form onSubmit={submit} className="flex flex-col gap-6 max-w-xl">
@@ -121,6 +144,14 @@ export default function AddProductForm() {
         <input className={input} placeholder="COLOR (EN)" value={colorEn} onChange={(e) => setColorEn(e.target.value)} />
         <input className={input} placeholder="COLOR (RU)" value={colorRu} onChange={(e) => setColorRu(e.target.value)} />
         <input className="h-10 w-16 border border-gray-300" type="color" value={colorHex} onChange={(e) => setColorHex(e.target.value)} />
+      </div>
+      <div className="grid grid-cols-2 gap-6">
+        <textarea className={textarea} rows={4} placeholder="DESCRIPTION (EN)" value={descEn} onChange={(e) => setDescEn(e.target.value)} />
+        <textarea className={textarea} rows={4} placeholder="DESCRIPTION (RU)" value={descRu} onChange={(e) => setDescRu(e.target.value)} />
+      </div>
+      <div className="grid grid-cols-2 gap-6">
+        <textarea className={textarea} rows={4} placeholder="FABRIC & CARE (EN) — one per line" value={fabricEn} onChange={(e) => setFabricEn(e.target.value)} />
+        <textarea className={textarea} rows={4} placeholder="FABRIC & CARE (RU) — one per line" value={fabricRu} onChange={(e) => setFabricRu(e.target.value)} />
       </div>
       <div>
         <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-3">Sizes & starting stock</p>
