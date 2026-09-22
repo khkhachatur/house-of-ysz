@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLang } from "@/context/LanguageContext";
 import { pick } from "../i18n/dictionary";
+import SetkaSign from "./SetkaSign";
 import { supabase } from "../utils/supabase";
 import type { Category } from "../types";
 
@@ -142,6 +143,7 @@ export default function Footer({ categories }: { categories: Category[] }) {
 
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 text-[9px] font-bold tracking-[0.2em] uppercase text-gray-500 gap-6">
           <div>© {new Date().getFullYear()} yzs. {t.footer.rights}</div>
+          <SetkaSign label={t.footer.madeBy} />
           <div className="flex gap-8">
             <Link href="/privacy" className="hover:text-white transition-colors">{t.footer.privacy}</Link>
             <Link href="/terms" className="hover:text-white transition-colors">{t.footer.terms}</Link>
